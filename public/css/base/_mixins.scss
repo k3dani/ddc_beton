@@ -1,0 +1,123 @@
+// Font size
+
+@function calcVW($size){
+  $vwSize: $size / 19.2px;
+  @return $vwSize * 1vw;
+}
+
+@function calculateRem($size) {
+  $remSize: $size / 10px;
+  @return $remSize * 1rem;
+}
+
+@mixin font-size($size) {
+  font-size: $size;
+  font-size: calculateRem($size);
+}
+
+// Font
+
+@mixin font($size, $color, $weight: 400, $line_height: 1) {
+  @include font-size($size);
+  color: $color;
+  font-weight: $weight;
+  font-family: $font;
+  line-height: $line_height;
+}
+
+// Border radius
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  border-radius: $radius;
+  //background-clip: padding-box;
+}
+
+//  Transitions
+
+@mixin transition($args...) {
+  -webkit-transition: $args;
+  -moz-transition: $args;
+  -ms-transition: $args;
+  -o-transition: $args;
+  transition: $args;
+}
+
+// Opacity
+
+@mixin opacity($opacity) {
+  opacity: $opacity;
+  $opacity-ie: $opacity * 100;
+  filter: alpha(opacity=$opacity-ie); //IE8
+}
+
+// Placeholders
+
+@mixin placeholder {
+  &.placeholder {
+    @content;
+  }
+  &:-moz-placeholder {
+    @content;
+  }
+  &::-moz-placeholder {
+    @content;
+  }
+  &:-ms-input-placeholder {
+    @content;
+  }
+  &::-webkit-input-placeholder {
+    @content;
+  }
+}
+
+// Box sizing
+
+@mixin box-sizing($box-model) {
+  -webkit-box-sizing: $box-model;
+  -moz-box-sizing: $box-model;
+  box-sizing: $box-model;
+}
+
+// Center block
+
+@mixin center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+// Box shadow
+
+@mixin box-shadow($top, $left, $blur, $color, $inset:"") {
+  -webkit-box-shadow:$top $left $blur $color #{$inset};
+  -moz-box-shadow:$top $left $blur $color #{$inset};
+  box-shadow:$top $left $blur $color #{$inset};
+}
+
+// Responsive
+
+@mixin breakpoint($point) {
+  @if $point == 1680 {
+    @media (max-width: 1680px) { @content ; }
+  }
+  @else if $point == 1440 {
+    @media (max-width: 1440px) { @content ; }
+  }
+  @else if $point == 1280 {
+    @media (max-width: 1280px) { @content ; }
+  }
+  @else if $point == 1024 {
+    @media (max-width: 1024px) { @content ; }
+  }
+  @else if $point == 992 {
+    @media (max-width: 992px) { @content ; }
+  }
+  @else if $point == 768 {
+    @media (max-width: 768px) { @content ; }
+  }
+  @else if $point == 480 {
+    @media (max-width: 480px) { @content ; }
+  }
+}
+

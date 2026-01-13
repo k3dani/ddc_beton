@@ -1,0 +1,35 @@
+// Base
+
+@import "base/normalize";
+@import "base/variables";
+@import "base/mixins";
+
+// Vendor
+
+@import "vendor/magnific-popup.css";
+
+// Partials
+
+@import "partials/multi";
+@import "partials/header";
+@import "partials/footer";
+@import "partials/blocks";
+
+// Main
+
+@import "main/page-home";
+@import "main/single-product-style-1";
+@import "main/single-product-style-2";
+@import "main/single-product-style-5";
+@import "main/cart-style";
+@import "main/page-shop";
+@import "main/page-checkout";
+@import "main/page-about";
+@import "main/page-quality";
+@import "main/page-worker";
+@import "main/page-partner-form";
+@import "main/page-news";
+@import "main/single-news";
+@import "main/page-tips";
+@import "main/page-ecoblock";
+@import "main/page-ecocrete";

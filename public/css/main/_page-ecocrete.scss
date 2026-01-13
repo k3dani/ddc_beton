@@ -1,0 +1,674 @@
+.page-ecocrete {
+  h1, h2, ul {
+    margin: 0;
+  }
+
+  p {
+    margin: 0 0 20px 0;
+    &:last-of-type {
+      margin: 0;
+    }
+  }
+
+  h2 {
+    line-height: 1.2;
+  }
+
+  .wrapper {
+    @include breakpoint(1024) {
+      flex-direction: column;
+    }
+  }
+
+  .title-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 31px;
+    row-gap: 0;
+    margin-bottom: 23px;
+    @include breakpoint(1024) {
+      gap: 0;
+    }
+    .logo {
+
+      img {
+        width: 260px;
+        height: auto;
+      }
+    }
+    .title {
+
+      h2 {
+        font-size: 60px;
+        color: $white;
+        @include breakpoint(1024) {
+          font-size: 40px;
+        }
+      }
+    }
+  }
+
+  .top-block {
+    background: $lite-grey;
+    @include breakpoint(1024) {
+      padding-top: 120px;
+    }
+    .wrapper {
+      width: 93%;
+      margin: 0 0 0 auto;
+      display: flex;
+      @include breakpoint(1024) {
+        flex-direction: column;
+        width: 86%;
+        margin: 0 auto;
+      }
+      .left {
+        width: 50%;
+        padding: 171px 122px 114px 0;
+        @include breakpoint(1024) {
+          width: 100%;
+          padding: 0;
+          margin-bottom: 80px;
+        }
+        .logo {
+          margin-bottom: 40px;
+          img {
+            width: 360px;
+            height: auto;
+            @include breakpoint(768) {
+              width: 100%;
+            }
+          }
+        }
+
+        .title {
+          margin-bottom: 40px;
+          h1 {
+            color: $black;
+            margin: 0;
+          }
+        }
+
+        .text {
+          margin-bottom: 40px;
+          p {
+
+          }
+        }
+
+        .button {
+
+          .btn {
+            background: #039C57;
+            color: #fff;
+            padding: 20px 65px;
+            border-radius: 0;
+            border: 2px solid #039C57;
+            -webkit-transition: all, 0.2s;
+            -moz-transition: all, 0.2s;
+            -ms-transition: all, 0.2s;
+            -o-transition: all, 0.2s;
+            transition: all, 0.2s;
+            &:hover {
+              border: 2px solid #039C57;
+              background: transparent;
+              color: #039C57;
+            }
+          }
+        }
+      }
+
+      .right {
+        width: 50%;
+        position: relative;
+        @include breakpoint(1024) {
+          padding-top: 60%;
+          width: 100%;
+        }
+        .hero-image {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+        }
+        .circle-block {
+          position: absolute;
+          z-index: 0;
+          bottom: 0;
+          left: 0;
+          background: white;
+          display: flex;
+          gap: 16px;
+          padding: 53px;
+          max-width: 666px;
+          width: 100%;
+          @include breakpoint(768) {
+            flex-wrap: wrap;
+            position: relative;
+          }
+          .cicrle {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 25%;
+            &:nth-of-type(1) {
+              .top {
+                background: url("../images/skate4.png");
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+              }
+            }
+            &:nth-of-type(2) {
+              .top {
+                background: url("../images/skate3.png");
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+              }
+            }
+            &:nth-of-type(3) {
+              .top {
+                background: url("../images/skate2.png");
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+              }
+            }
+            &:nth-of-type(4) {
+              .top {
+                background: url("../images/skate1.png");
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+              }
+            }
+            @include breakpoint(480) {
+              width: 100%;
+            }
+            .top {
+              width: 100px;
+              height: 100px;
+              border-radius: 100%;
+              margin-bottom: 20px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              position: relative;
+              overflow: hidden;
+              &:after {
+                content: '';
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                left: 0;
+                top: 0;
+                background: $greener;
+                opacity: 25%;
+                z-index: 0;
+              }
+              p {
+                font-size: 25px;
+                font-weight: 700;
+                color: $white;
+                position: relative;
+                z-index: 1;
+              }
+            }
+            .bottom {
+              p {
+                color: $greener;
+                font-weight: 700;
+                text-align: center;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .pros-block {
+    background: $greener;
+    padding: 150px 0 348px 0;
+    @include breakpoint(1024) {
+      padding: 150px 0;
+      margin-top: -80px;
+    }
+    .wrapper {
+      width: 86%;
+      display: flex;
+      justify-content: space-between;
+      .left {
+        width: calc(100% / 12 * 4);
+        @include breakpoint(1024) {
+          width: 100%;
+        }
+        .text {
+          margin-bottom: 44px;
+          p {
+            font-size: 30px;
+            color: white;
+            font-weight: 700;
+          }
+        }
+
+        .list {
+          ul {
+            list-style: none;
+            padding: 0;
+            li {
+              font-size: 20px;
+              color: $white;
+              margin-bottom: 26px;
+              position: relative;
+              padding-left: 59px;
+              &:last-of-type {
+                margin-bottom: 0;
+              }
+              &:before {
+                content: "";
+                background: url(../images/ecoplus.svg) center/contain no-repeat;
+                width: 36px;
+                height: 36px;
+                position: absolute;
+                left: 0;
+                top: 0;
+                //transform: translateY(-35%);
+              }
+            }
+          }
+        }
+      }
+
+      .right {
+        width: calc(100% / 12 * 5);
+        padding-top: 70px;
+        @include breakpoint(1024) {
+          width: 100%;
+        }
+        .list {
+          ul {
+            list-style: none;
+            padding: 0;
+            li {
+
+              margin-bottom: 32px;
+              display: flex;
+              gap: 48px;
+              &:last-of-type {
+                margin-bottom: 0;
+              }
+              .icon {
+                width: 54px;
+                height: 54px;
+              }
+              p {
+                font-size: 30px;
+                color: white;
+                font-weight: 700;
+                width: 100%;
+                line-height: 1.3;
+                @include breakpoint(1024) {
+                  font-size: 22px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .char-block {
+    margin-top: -134px;
+    @include breakpoint(1024) {
+      margin-top: 0;
+    }
+    .wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      @include breakpoint(1024) {
+        width: 86%;
+      }
+      .left {
+        width: calc(100% / 14 * 6);
+        @include breakpoint(1024) {
+          width: 100%;
+        }
+      }
+
+      .right {
+        padding: 271px 7% 213px 145px;
+        width: calc(100% / 14 * 8);
+        @include breakpoint(1024) {
+          width: 100%;
+          padding: 100px 0 0 0;
+        }
+        .title-row {
+
+          .logo {
+
+            img {
+              width: 237px;
+            }
+          }
+
+          .title {
+
+            h2 {
+              color: $black;
+            }
+          }
+        }
+
+        .table {
+          @include breakpoint(768) {
+            overflow-x: scroll;
+          }
+          table {
+            width: 100%;
+            tbody {
+
+              tr {
+                position: relative;
+                &:nth-of-type(2) {
+                  &:before {
+                    height: calc(100% - 29px);
+                  }
+                }
+                &:first-of-type {
+                  &:after {
+                    background: transparent;
+                  }
+                  &:before {
+                    background: transparent;
+                  }
+                }
+                &:last-of-type {
+                  &:after {
+                    background: transparent;
+                  }
+                  &:before {
+                    height: calc(100% - 29px);
+                    bottom: unset;
+                    top: 0;
+                  }
+                }
+                &:after {
+                  content: '';
+                  position: absolute;
+                  width: calc(100% - 56px);
+                  height: 1px;
+                  background: $black;
+                  opacity: 10%;
+                  bottom: 0;
+                  left: 50%;
+                  transform: translateX(-50%);
+                }
+                &:before {
+                  content: '';
+                  position: absolute;
+                  width: 1px;
+                  height: 100%;
+                  left: 50%;
+                  transform: translateX(-50%);
+                  bottom: 0;
+                  background: $black;
+                  opacity: 10%;
+                }
+                th {
+                  width: 50%;
+                  font-size: 20px;
+                  color: $white;
+                  background: $greener;
+                  padding: 29px 28px;
+                  line-height: 1.2;
+                }
+                td {
+                  font-size: 18px;
+                  color: $black;
+                  padding: 29px 28px;
+                  line-height: 1.2;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .info-block {
+    overflow: hidden;
+    .wrapper {
+      display: flex;
+      width: 100%;
+      @include breakpoint(1024) {
+        //width: 86%;
+      }
+      .left {
+        padding: 178px 148px 354px 7%;
+        width: calc(100% / 14 * 6);
+        @include breakpoint(1024) {
+          width: 100%;
+          padding: 100px 7%;
+        }
+        .logo {
+          margin-bottom: 55px;
+          img {
+            width: 236px;
+            height: auto;
+          }
+        }
+
+        .title {
+
+          h2 {
+            font-size: 50px;
+            @include breakpoint(1440) {
+              font-size: 35px;
+            }
+          }
+        }
+      }
+
+      .right {
+        width: calc(100% / 14 * 8);
+        background: $greener;
+        padding: 135px 7% 135px 120px;
+        @include breakpoint(1024) {
+          width: 100%;
+          padding: 100px 7%;
+        }
+        .owl-carousel-ecocrete {
+          overflow: hidden;
+          position: relative;
+          .owl-stage-outer {
+
+            .owl-stage {
+              display: flex;
+              .owl-item {
+
+                .item {
+                  padding-right: 140px;
+                  @include breakpoint(1024) {
+                    padding-right: 0;
+                  }
+                  .title-row {
+                    margin-bottom: 55px;
+                    .logo {
+
+                      img {
+
+                      }
+                    }
+
+                    .title {
+
+                      h2 {
+
+                      }
+                    }
+                  }
+
+                  .text {
+                    margin-bottom: 55px;
+                    p {
+                      font-size: 30px;
+                      font-weight: 700;
+                      color: $white;
+                    }
+                  }
+
+                  .image {
+                    margin-bottom: 71px;
+                    img {
+
+                    }
+                  }
+
+                  .bottom-text {
+
+                    p {
+                      color: $white;
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          .owl-nav {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            display: flex;
+            button {
+              background: transparent;
+              border: none;
+              display: flex;
+              align-items: center;
+              .arrow {
+                display: flex;
+              }
+            }
+            .owl-prev {
+              .arrow {
+                transform: rotate(180deg);
+              }
+              span {
+
+              }
+            }
+
+            .owl-next {
+
+              span {
+
+              }
+            }
+          }
+
+          .owl-dots {
+
+            .owl-dot {
+
+              span {
+
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .bg-block {
+    position: relative;
+    &:before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background: $black;
+      opacity: 41%;
+    }
+    .wrapper {
+      padding: 215px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+      .logo {
+        margin-bottom: 45px;
+        img {
+          width: 398px;
+          height: auto;
+          @include breakpoint(1024) {
+            width: 100%;
+          }
+        }
+      }
+
+      h2 {
+        font-size: 60px;
+        font-weight: 700;
+        color: $white;
+        margin-bottom: 74px;
+        @include breakpoint(1024) {
+          font-size: 40px;
+        }
+      }
+
+      .links {
+        display: flex;
+        gap: 145px;
+        @include breakpoint(1024) {
+          flex-direction: column;
+          gap: 40px;
+        }
+        .link {
+          display: flex;
+          align-items: center;
+          color: $white;
+          gap: 40px;
+          #Group_1056 {
+
+            defs {
+
+              #clip-path {
+
+                #Rectangle_563 {
+
+                }
+              }
+            }
+
+            #Group_796 {
+
+              #Path_579 {
+
+              }
+
+              #Path_580 {
+
+              }
+
+              #Path_581 {
+
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+}

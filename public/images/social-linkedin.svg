@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="16" height="16" viewBox="0 0 16 16">
+  <defs>
+    <clipPath id="clip-path">
+      <rect width="16" height="16" fill="none"/>
+    </clipPath>
+  </defs>
+  <g id="Social_Icons_16px_LinkedIn" data-name="Social Icons – 16px / LinkedIn" opacity="0.2" clip-path="url(#clip-path)">
+    <path id="Icon" d="M14.816,16H1.18A1.169,1.169,0,0,1,0,14.845V1.154A1.168,1.168,0,0,1,1.18,0H14.816A1.171,1.171,0,0,1,16,1.154V14.845A1.171,1.171,0,0,1,14.816,16ZM6.235,6v7.636H8.6V9.857c0-.97.169-1.961,1.422-1.961,1.234,0,1.234,1.17,1.234,2.024v3.714h2.372V9.446c0-1.889-.345-3.638-2.847-3.638A2.51,2.51,0,0,0,8.542,7.042H8.508V6ZM2.37,6v7.636H4.745V6Zm1.19-3.8A1.377,1.377,0,1,0,4.935,3.578,1.379,1.379,0,0,0,3.559,2.2Z" transform="translate(0 0)" fill="#fff"/>
+  </g>
+</svg>

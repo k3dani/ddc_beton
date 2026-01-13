@@ -1,0 +1,775 @@
+// Main universal elements
+
+* {
+  @include box-sizing(border-box);
+}
+
+body {
+  line-height: 1;
+  font-family: $font;
+  font-weight: 400;
+  overflow-x: hidden;
+}
+
+#main-content {
+  padding-bottom: 100px;
+  @include breakpoint(992) {
+    padding-bottom: 50px;
+  }
+}
+
+h1 {
+  @include font(60px, $white, 700, 1.3);
+  @include breakpoint(1680) {
+    @include font-size(50px);
+  }
+  @include breakpoint(1280) {
+    @include font-size(42px);
+  }
+  @include breakpoint(768) {
+    @include font-size(36px);
+  }
+
+  &.product_title {
+    color: $black;
+  }
+
+  &.main-title {
+    color: $black;
+  }
+}
+
+h2 {
+  @include font(40px, $black, 500, 1.3);
+  @include breakpoint(1440) {
+    @include font-size(34px);
+  }
+}
+
+h3 {
+  @include font(30px, $black, 500, 1.3);
+  @include breakpoint(1280) {
+    @include font-size(24px);
+  }
+  @include breakpoint(992) {
+    @include font-size(21px);
+  }
+}
+
+p, li, a {
+  @include font(18px, #898989, 400, 1.4);
+}
+
+a.btn, a.btn:hover {
+  text-decoration: none;
+  @include font(20px, $white, 400, 1.2);
+}
+
+.container-fluid {
+  width: 87%;
+  margin: 0 auto;
+}
+
+.wrapper {
+  width: 90%;
+  margin: 0 auto;
+
+  &.small {
+    max-width: 1360px;
+  }
+}
+
+// Mix
+
+.all {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.vc {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+}
+
+*:focus {
+  outline: none;
+}
+
+
+.hide-logedout {
+  display: none;
+}
+.logged-in {
+  .notification{
+    display: none;
+  }
+  .hide-logedout {
+    display: block;
+  }
+}
+
+// grouped services for transportas
+
+.yith-wcbk-form-section-services-wrapper {
+  display: flex;
+  flex-direction: column;
+
+  .yith-wcbk-form-section-service {
+    &.su-talpa {
+      order: 1;
+    }
+
+    &:nth-of-type(7) {
+      order: 5;
+    }
+
+    &:nth-of-type(1) {
+      order: 4;
+      padding-top: 30px;
+      margin-top: 30px;
+      border-top: 1px solid $light-green;
+      @include breakpoint(992) {
+        border-top: 3px solid $green;
+        position: relative;
+        padding: 75px 25px 0 25px !important;
+        &:after {
+          content: '5/9';
+          position: absolute;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 80px;
+          width: 104px;
+          background: #FFFFFF;
+          color: #DFDFDF;
+          @include font-size(26px);
+          font-weight: 700;
+          border-bottom-left-radius: 100%;
+          right: 0px;
+          padding-left: 22px;
+          top: 0px;
+          z-index: 0;
+        }
+        &:before {
+          content: 'Pristatymo zona';
+          position: absolute;
+          top: 35px;
+          left: 25px;
+          @include font(21px, $black, 700, 1.3);
+        }
+      }
+    }
+
+    &:nth-of-type(2) {
+      order: 7;
+    }
+
+    &:nth-of-type(3) {
+      order: 8;
+    }
+
+    &:nth-of-type(2) {
+      padding-top: 30px;
+      margin-top: 30px;
+      border-top: 1px solid $light-green;
+      @include breakpoint(992) {
+        margin-top: 0;
+      }
+    }
+
+    &:nth-of-type(8) {
+      order: 6;
+    }
+
+  }
+
+}
+
+.woocommerce form .form-row-first, .woocommerce form .form-row-last, .woocommerce-page form .form-row-first, .woocommerce-page form .form-row-last {
+  width: 100%;
+}
+
+
+// Theme
+
+.photo {
+  &.pad-100 {
+    &:after {
+      content: "";
+      display: block;
+      width: 100%;
+      padding-top: 100%;
+      @include breakpoint(992) {
+        padding-top: 40%;
+      }
+    }
+  }
+
+  &.pad-80 {
+    &:after {
+      content: "";
+      display: block;
+      width: 100%;
+      padding-top: 80%;
+      @include breakpoint(992) {
+        padding-top: 40%;
+      }
+    }
+  }
+
+  &.pad-30 {
+    &:after {
+      content: "";
+      display: block;
+      width: 100%;
+      padding-top: 30%;
+    }
+  }
+
+  &.pad-50 {
+    &:after {
+      content: "";
+      display: block;
+      width: 100%;
+      padding-top: 50%;
+    }
+  }
+
+  &.pad-120 {
+    &:after {
+      content: "";
+      display: block;
+      width: 100%;
+      padding-top: 120%;
+      @include breakpoint(992) {
+        padding-top: 40%;
+      }
+    }
+  }
+}
+
+//breadcrumbs
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  margin-bottom: 20px;
+  @include breakpoint(1024) {
+    display: none;
+  }
+
+  p {
+    margin-right: 60px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    @include breakpoint(768) {
+      margin-right: 30px;
+      @include font-size(16px);
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      right: -39px;
+      height: 15px;
+      width: 15px;
+      background: url("../images/arrow-right.svg");
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      @include breakpoint(768) {
+        right: -23px;
+      }
+    }
+
+    &:last-of-type {
+      &:after {
+        display: none;
+      }
+    }
+
+    &.active {
+      color: $green;
+    }
+  }
+}
+
+
+// Juliaus korekcijos
+
+.yith-wcbk-booking-form-total--total-price .yith-wcbk-booking-form-total__label,
+.yith-wcbk-booking-form-total--total-price .yith-wcbk-booking-form-total__value {
+  color: #000 !important;
+}
+
+.mfp-close-btn-in .mfp-close {
+  color: #333;
+  background: white;
+  top: 0px;
+}
+
+.mfp-auto-cursor .mfp-content {
+  padding: 44px 0;
+}
+
+select#yith-wcbk-booking-start-date-time-33, input#yith-wcbk-booking-persons, .yith-wcbk-booking-form input:not([type='checkbox']), .yith-wcbk-booking-form input.yith-wcbk-date-picker--formatted, .yith-wcbk-booking-form select, .y {
+  font-size: 2rem;
+}
+
+table.ui-datepicker-calendar, table.ui-datepicker-calendar a {
+  font-size: 16px !important;
+}
+
+.ui-datepicker-title {
+  font-size: 2rem !important;
+}
+
+.wc_payment_methods {
+
+}
+
+#yith-wcbk-booking-persons {
+  display: none;
+}
+
+#add_payment_method #payment div.payment_box::before, .woocommerce-cart #payment div.payment_box::before, .woocommerce-checkout #payment div.payment_box::before {
+  display: none;
+}
+
+#add_payment_method #payment div.payment_box, .woocommerce-cart #payment div.payment_box, .woocommerce-checkout #payment div.payment_box {
+  background: transparent;
+}
+
+.seb-commerce-wrapper .preferred-country select {
+  font-size: 20px;
+  padding: 4px 25px;
+}
+
+.booking-actions .yith-wcbk-booking-actions .button.view {
+  display: none;
+}
+
+select#yith-wcbk-booking-start-date-time-33 {
+  position: relative;
+  background: transparent;
+  z-index: 2;
+}
+
+.woocommerce-table__product-name.product-name a,
+.booking-id a {
+  pointer-events: none;
+}
+
+#ui-datepicker-div {
+  z-index: 9 !important;
+}
+
+#billing_wooccm12_field {
+  .checkbox {
+    display: flex;
+    align-items: center;
+
+    input {
+      margin-right: 13px;
+      position: relative;
+    }
+  }
+}
+
+select.select {
+  background: #f7f7f7;
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0));
+  border: 1px solid #d1d1d1;
+  border-radius: 2px;
+  color: #686868;
+  padding: 0.4375em;
+  width: 100% !important;
+  height: auto;
+  box-shadow: none;
+  display: block;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+
+.my-field-class label {
+  font-size: 20px;
+  font-size: 2rem;
+  color: #000;
+  font-weight: 400;
+  font-family: "Yantramanav", sans-serif;
+  line-height: 1;
+}
+
+form.cart {
+  display: flex;
+  flex-wrap: wrap;
+
+  .yith-wcbk-booking-form {
+    order: 3;
+    width: 100%;
+  }
+
+  .yith-wcbk-add-to-cart-button {
+    order: 4;
+  }
+
+  .custom-delivery {
+    width: 100%;
+
+    .woocommerce-input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+
+      &:before {
+        content: '';
+        position: absolute;
+        border: solid #686868;
+        border-width: 0 2px 2px 0;
+        display: inline-block;
+        padding: 5px;
+        transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+        right: 11px;
+        top: 9px;
+      }
+    }
+  }
+}
+
+.news-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  row-gap: 50px;
+  margin: 0px -7.5px;
+  @include breakpoint(768) {
+    margin: 0;
+  }
+
+  .link-wrap {
+    text-decoration: none;
+  }
+
+  .news-box {
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: calc(33.33333333333333% - 15px);
+    margin: 7.5px;
+    display: flex;
+    flex-direction: column;
+    @include breakpoint(1280) {
+      flex-basis: calc(50% - 15px)
+    }
+    @include breakpoint(768) {
+      flex-basis: 100%;
+      margin: 0;
+    }
+
+    .top {
+      width: 100%;
+      padding: 30%;
+    }
+
+    .bottom {
+      flex-grow: 1;
+      padding: 26px 5vw 26px 49px;
+      background-color: $grey;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      .text {
+        p {
+          margin: 0;
+        }
+
+        h2 {
+          @include font-size(32px);
+          margin: 0 0 26px 0;
+        }
+      }
+
+      .link {
+        a {
+          margin: 0;
+          color: $green;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}
+
+
+// hide elements on desktop
+
+.hide-desktop {
+  display: none;
+  @include breakpoint(1024) {
+    display: block;
+  }
+}
+
+.hide-mobile {
+  display: block;
+  @include breakpoint(1024) {
+    display: none;
+  }
+}
+
+.logged-in {
+  .betono_blokeliai{
+    .variations {
+      display: table;
+    }
+  }
+}
+
+.whatsapp {
+  width: 60px;
+  height: 60px;
+  position: fixed;
+  right: 24px;
+  bottom: 180px;
+
+  a {
+    display: block;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+.co-browsing {
+  width: 60px;
+  height: 60px;
+  margin: 10px;
+  position: fixed;
+  right: 1.36719%;
+  bottom: 100px;
+  cursor: pointer;
+
+  a {
+    display: block;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.viber {
+  width: 60px;
+  height: 60px;
+  position: fixed;
+  right: 24px;
+  bottom: 100px;
+
+  a {
+    display: block;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+li.payment_method_other_payment {
+  display: none !important;
+}
+
+body.logged-in {
+  li.payment_method_other_payment {
+    display: flex !important;
+  }
+}
+
+
+
+//body.logged-in .yith-wcbk-form-section-services-wrapper{
+//  display: none;
+//}
+body.logged-in .additional-info,
+body .blokeliu-pristatymas .additional-info{
+}
+body.logged-in.user-id-7 {
+  .custom-delivery.second {
+    .form-row{
+      display: block !important;
+    }
+  }
+}
+
+body .betono_blokeliai {
+  .hide-savivarciu{
+    color: transparent;
+  }
+}
+
+.product_cat-betono_blokeliai{
+  .meta-single{
+    &:nth-of-type(1) {
+     p {
+       color: transparent !important;
+     }
+    }
+    &:nth-of-type(2) {
+      p {
+        color: transparent !important;
+      }
+    }
+  }
+}
+
+
+//.product-template-default .popup-modal {
+//  display: none !important;
+//}
+
+.page-news, .page-tips {
+  .top-block {
+    background-position-y: 100% !important;
+    position: relative;
+
+    &:before {
+      content: "";
+      background: #000000;
+      background: linear-gradient(-90deg, #000000 0%, rgba(46, 46, 46, 0) 0%, black 100%);
+      position: absolute;
+      width: 50%;
+      height: 100%;
+      bottom: 0;
+      left: 0;
+      opacity: 0.6;
+      border-radius: 0 0 0.4166666667vw 0.4166666667vw;
+
+    }
+
+    .title {
+      position: relative;
+      padding: 0 15px;
+      width: 40%;
+      @include breakpoint(1440) {
+        width: 45vw;
+      }
+      @include breakpoint(768) {
+        width: 70%;
+      }
+      @include breakpoint(480) {
+        width: 100%;
+      }
+
+      h1 {
+        margin-top: 159px;
+        margin-bottom: 207px;
+      }
+    }
+  }
+
+  .news-block {
+    padding-top: 110px;
+
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 58px;
+      margin-bottom: 74px;
+
+      .page-numbers {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 3px solid $darker-grey;
+        padding: 14px 22px;
+        @include font-size(21px);
+        font-weight: 500;
+        color: $darker-grey;
+        text-decoration: none;
+        transition: all 0.3s;
+
+        &:hover {
+          background-color: $green;
+          color: $white;
+          border-color: $green;
+        }
+
+        &.next, &.prev {
+          border: none;
+          padding: 0;
+
+          &:hover {
+            border-color: unset;
+            background-color: transparent;
+          }
+        }
+
+        &.current {
+          background-color: $green;
+          color: $white;
+          border-color: $green;
+        }
+      }
+    }
+  }
+}
+
+// my account
+
+.woocommerce-view-order {
+  .order-again {
+    display: none;
+  }
+
+  .account-bookings-table {
+    display: none;
+  }
+
+  .my-orders-test {
+    display: none;
+
+  }
+}
+
+.woocommerce-account {
+  .my-orders-test {
+    .order-total {
+      .kiekis-koreguotas {
+        &:nth-of-type(2) {
+          display: none;
+        }
+      }
+
+    }
+
+    .order-name {
+      .produktas {
+        &:nth-of-type(2) {
+          display: none;
+        }
+      }
+    }
+
+  }
+}
+
+.variation-Duration, .variation-Pageidaujamaspristatymolaikasiki{
+  display: none !important;
+}
+

@@ -1,0 +1,294 @@
+.page-home {
+  .top-block {
+    padding: 150px 0;
+    @include breakpoint(1024) {
+      padding-top: 75px;
+    }
+
+    .container-fluid {
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        @include breakpoint(1440) {
+          padding: 0;
+        }
+
+        .col-md-6 {
+          &:first-of-type {
+            @include breakpoint(1024) {
+              padding-bottom: 40px;
+            }
+
+            h1 {
+              margin-top: 0;
+            }
+
+            p {
+              color: $green;
+              font-weight: 600;
+              @include font-size(30px);
+            }
+
+            a {
+              display: block;
+              margin-bottom: 10px;
+              color: $green;
+              font-weight: 600;
+              @include font-size(30px);
+
+              &:last-of-type {
+                margin-bottom: 0;
+              }
+            }
+
+            .ecoblock {
+              margin-top: 60px;
+
+              .icon {
+
+                img {
+                  width: 176px;
+                  height: auto;
+                }
+              }
+
+              .text {
+                p {
+                  @include font(20px, $white, 500, 1.7);
+                }
+              }
+
+              .link {
+                display: inline-block;
+                margin-top: 25px;
+
+                .btn {
+                  background: $white;
+                  border-radius: 0;
+                  @include font(18px, $greener, 400, 1.3);
+                  padding: 16px 47px;
+                  transition: $tr-all;
+
+                  &:hover {
+                    background: $greener;
+                    color: $white;
+                  }
+                }
+              }
+            }
+
+          }
+
+          @include breakpoint(1024) {
+            width: 100%;
+            &:first-of-type {
+              margin-top: 0;
+            }
+          }
+
+          h1 {
+
+          }
+
+          .sub-heading {
+            color: $white;
+            font-weight: 400;
+            padding-bottom: 60px;
+            max-width: 450px;
+            @include breakpoint(1680) {
+              @include font-size(26px);
+            }
+          }
+
+          .hero-arrow {
+            position: absolute;
+            right: 0;
+            bottom: 42%;
+            @include breakpoint(1824) {
+              bottom: 35%;
+            }
+            @include breakpoint(1680) {
+              bottom: 52%;
+            }
+            @include breakpoint(1551) {
+              bottom: 45%;
+            }
+            @include breakpoint(1440) {
+              bottom: 52%;
+            }
+            @include breakpoint(1280) {
+              bottom: 58%;
+            }
+            @include breakpoint(1097) {
+              bottom: 52%;
+            }
+            @include breakpoint(1024) {
+              display: none;
+            }
+          }
+          .btn {
+            background: $green;
+            border-radius: 0;
+            @include font(18px, $white, 400, 1.3);
+            padding: 16px 47px;
+            transition: $tr-all;
+
+            &:hover {
+              background: $greener;
+              color: $white;
+            }
+          }
+          &.align-center {
+            background: $white;
+            padding: 50px;
+            h2 {
+              padding-bottom: 0;
+              color: $black;
+              margin-top: 0;
+              text-align: center;
+            }
+            .sub-heading{
+              max-width: 100%;
+            }
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+          }
+        }
+      }
+    }
+  }
+
+  .about-block {
+    padding: 230px 0 100px 0;
+    @include breakpoint(992) {
+      padding: 100px;
+    }
+    @include breakpoint(768) {
+      padding: 100px 0 50px 0;
+    }
+
+    .container-fluid {
+
+      .row {
+        padding: 0 8%;
+        display: flex;
+        flex-wrap: wrap;
+        @include breakpoint(1440) {
+          padding: 0;
+        }
+
+        .col-md-4 {
+          border-right: 2px solid $dark-green;
+          padding: 0;
+          @include breakpoint(992) {
+            border-right: none;
+            border-bottom: 2px solid $dark-green;
+            width: 100%;
+          }
+
+          &:last-of-type {
+            border-right: none;
+            @include breakpoint(992) {
+              border-bottom: none;
+            }
+          }
+
+          h3 {
+            text-align: center;
+            border-bottom: 2px solid $dark-green;
+            margin: 0;
+            padding: 35px 15px;
+            @include breakpoint(992) {
+              border-bottom: none;
+            }
+          }
+
+          ul {
+            list-style: none;
+            text-align: center;
+            padding: 0;
+            margin: 0;
+
+            li {
+              width: 100%;
+              border-top: 2px solid $dark-green;
+              padding: 40px 15px 55px 15px;
+              @include breakpoint(992) {
+                padding: 0 15px 30px 15px;
+              }
+
+              &:first-of-type {
+                border-top: 0;
+              }
+
+              img {
+
+              }
+
+              p {
+                color: $black;
+                @include font-size(20px);
+                opacity: 0.6;
+                max-width: 290px;
+                margin: 0 auto;
+                text-align: center;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .location-block {
+    padding: 0 0 150px 0;
+    .wrapper {
+      .heading {
+        margin-bottom: 50px;
+        h2 {
+          margin-bottom: 0px;
+        }
+      }
+      .map-wrap {
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+        align-items: center;
+        gap: calcVW(80px);
+        #results{
+          p {
+            display: none;
+            font-size: 1.8rem;
+            color: #000;
+            font-weight: 500;
+            font-family: "Yantramanav", sans-serif;
+            line-height: 1;
+            &:first-of-type {
+              display: block;
+            }
+          }
+          .btn {
+            background: $green;
+            border-radius: 0;
+            @include font(18px, $white, 400, 1.3);
+            padding: 16px 47px;
+            transition: $tr-all;
+
+            &:hover {
+              background: $greener;
+              color: $white;
+            }
+          }
+        }
+        #map {
+          border: 2px solid $dark-green;
+          #address-input{
+            border: 2px solid $dark-green !important;
+          }
+        }
+      }
+    }
+  }
+
+}

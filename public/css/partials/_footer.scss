@@ -1,0 +1,190 @@
+footer {
+  background: $dark-green;
+  padding: 95px 8%;
+  @include breakpoint(1280) {
+    padding: 75px 0;
+  }
+
+  .new-bottom {
+    margin-top: 3vw;
+
+    @include breakpoint(1024){
+      margin-top: 15vw;
+    }
+
+    p {
+      color: $white;
+      opacity: .4;
+    }
+
+    .text2 {
+      width: calcVW(230px);
+
+      @include breakpoint(1024) {
+        width: 100%;
+      }
+    }
+
+    img {
+      width: calcVW(160px);
+
+      @include breakpoint(1024) {
+        width: 60vw;
+      }
+    }
+  }
+
+  .container-fluid {
+
+    .logo {
+      @include breakpoint(992) {
+        text-align: center;
+      }
+
+      a {
+
+        img {
+          height: 62px;
+        }
+      }
+    }
+
+    .wrap {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 75px;
+      padding-bottom: 50px;
+      border-bottom: 1px solid #707070;
+
+      .left {
+        width: 35%;
+        @include breakpoint(992) {
+          width: 100%;
+          order: 2;
+        }
+
+        .text {
+
+          p {
+            @include font(14px, $white, 400, 1.3);
+            opacity: 0.4;
+            margin: 0;
+          }
+        }
+
+        .socials {
+          margin-top: 60px;
+
+          .social {
+            margin-right: 5px;
+
+            img {
+            }
+          }
+        }
+      }
+
+      .right {
+        width: 65%;
+        display: flex;
+        flex-direction: row;
+        @include breakpoint(992) {
+          width: 100%;
+          order: 1;
+
+        }
+        @include breakpoint(768) {
+          flex-direction: column;
+        }
+
+        .single-column {
+          margin-right: 75px;
+          width: calc(100% / 12 * 4);
+
+          @include breakpoint(1024) {
+            width: 100%;
+          }
+
+          &:last-of-type {
+            margin-right: 0;
+          }
+
+          @include breakpoint(1280) {
+            margin-right: 35px;
+          }
+
+          h5 {
+            @include font(16px, $white, 400, 1);
+            margin-top: 0;
+          }
+
+          ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+
+            li {
+              margin-bottom: 10px;
+
+              a {
+                @include font(14px, $white, 400, 1);
+                opacity: 0.6;
+              }
+            }
+          }
+
+          p {
+            @include font(14px, $white, 400, 1.3);
+            opacity: 0.6;
+
+            a {
+              @include font(14px, $white, 400, 1.3);
+            }
+          }
+        }
+      }
+    }
+
+    .copyright {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 50px;
+
+      p {
+        @include font(14px, $white, 400, 1);
+        opacity: 0.6;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: row;
+
+        li {
+          margin-right: 15px;
+
+          &:last-of-type {
+            margin-right: 0;
+          }
+
+          a {
+            @include font(14px, $white, 400, 1);
+            opacity: 0.6;
+            text-decoration: none;
+            @include transition(all, 0.2s);
+
+            &:hover {
+              opacity: 0.4;
+            }
+          }
+        }
+      }
+    }
+  }
+}

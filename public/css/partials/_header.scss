@@ -1,0 +1,294 @@
+header {
+  position: relative;
+
+  .notification {
+    background-color: #F9F9F9;
+
+    .container-fluid {
+      padding: 10px 0;
+    }
+
+    p {
+      font-size: 18px;
+      margin: 0;
+      a {
+        color: $green;
+        font-size: 18px;
+        &:last-of-type {
+          margin-right: 0;
+        }
+      }
+      span {
+        color: #000;
+        font-weight: 700;
+      }
+    }
+  }
+
+  .container-fluid {
+    padding: 40px 0 50px 0;
+
+    .wrap {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+
+      .logo {
+
+        img {
+          height: 62px;
+        }
+      }
+
+      .menu {
+        @include breakpoint(1280) {
+          position: absolute;
+          transform: scaleX(0);
+          transform-origin: right;
+          right: 0;
+          @include transition(all, 0.4s);
+          background: $white;
+          z-index: 999;
+          top: 100%;
+        }
+
+        ul {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          @include breakpoint(1280) {
+            flex-direction: column;
+          }
+
+          li {
+            margin-right: 55px;
+            @include breakpoint(1440) {
+              margin-right: 35px;
+            }
+            @include breakpoint(1280) {
+              margin-right: 0;
+              margin-bottom: 35px;
+            }
+
+            a {
+              @include font(18px, $black, 500, 1);
+              text-decoration: none;
+              @include transition(all, 0.4s);
+
+              &:hover {
+                color: $green;
+              }
+            }
+
+            &.menu-btn {
+              a {
+                background: $green;
+                color: $white;
+                padding: 15px 50px;
+                display: block;
+                border: 1px solid $green;
+                @include breakpoint(1440) {
+                  padding: 15px 30px;
+                }
+
+                &:hover {
+                  background: transparent;
+                  color: $green;
+                }
+              }
+            }
+
+            &.color-green {
+              a {
+                color: $green;
+
+                &:hover {
+                  color: $black;
+                }
+              }
+            }
+
+            &.current-menu-item {
+              a {
+                color: $green;
+              }
+
+            }
+          }
+        }
+
+        &.active-menu {
+          right: 0;
+          transform: scaleX(1);
+          left: 0;
+
+
+        }
+      }
+
+      .resp-btn {
+        position: relative;
+        height: 28px;
+        display: none;
+        width: 57px;
+        align-items: center;
+        flex-wrap: wrap;
+        cursor: pointer;
+        flex-direction: column;
+        justify-content: space-between;
+        @include breakpoint(1280) {
+          right: 0;
+          display: flex;
+        }
+
+        div {
+          height: 3px;
+          width: 80%;
+          background: $green;
+          margin-bottom: 3px;
+          @include transition($tr-all);
+          @include breakpoint(768) {
+            height: 3px;
+          }
+          @include breakpoint(480) {
+            height: 2px;
+          }
+
+          &:nth-of-type(1) {
+            align-self: flex-start;
+          }
+
+          &:nth-of-type(2) {
+            align-self: center;
+          }
+
+          &:nth-of-type(3) {
+            align-self: flex-end;
+          }
+        }
+      }
+
+      .active-btn {
+        margin-top: 10px;
+
+        div {
+          background: $green;
+        }
+
+        div:nth-last-of-type(2) {
+          width: 0;
+        }
+
+        div:nth-of-type(1) {
+          transform: rotate(45deg);
+          position: absolute;
+          width: 100%;
+          align-self: center;
+        }
+
+        div:nth-of-type(3) {
+          transform: rotate(-45deg);
+          position: absolute;
+          width: 100%;
+          align-self: center;
+        }
+      }
+    }
+  }
+
+  .menu-item-has-children {
+    position: relative;
+    margin-bottom: 0 !important;
+
+    &.active {
+      &:after {
+        transform: rotate(225deg);
+      }
+    }
+
+    &:hover {
+      @media screen and (min-width: 1280px) {
+        &:after {
+          transform: rotate(225deg);
+        }
+      }
+    }
+
+    &:after {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-bottom: 3px solid $black;
+      border-right: 3px solid $black;
+      display: block;
+      position: absolute;
+      right: -16px;
+      top: 50%;
+      transform: translateY(-75%) rotate(45deg);
+      transition: $tr-all;
+      @include breakpoint(1280) {
+        transform: rotate(45deg);
+        top: 7px;
+      }
+    }
+
+    &:hover {
+      .sub-menu {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+
+    .sub-menu {
+      position: absolute;
+      left: -18px;
+      flex-direction: column !important;
+      padding: 14px 18px 22px 18px !important;
+      background: $white;
+      opacity: 0;
+      visibility: hidden;
+      transition: $tr-all;
+      background: $white;
+      align-items: flex-start !important;
+      z-index: 10;
+      width: calc(100% + 36px);
+      min-width: 103px;
+      @include breakpoint(1280) {
+        max-height: 0;
+        overflow: hidden;
+        min-width: auto;
+        align-items: center !important;
+        &.active {
+          max-height: 5000px;
+        }
+      }
+      @include breakpoint(1280) {
+        position: relative;
+        opacity: 1;
+        visibility: visible;
+        padding: 35px 0 0 0 !important;
+        //margin-bottom: 35px !important;
+      }
+
+      li {
+        margin-bottom: 11px;
+        margin-right: 0 !important;
+        @include breakpoint(1280) {
+          //margin-bottom: 0 !important;
+        }
+
+        &:last-of-type {
+          margin-bottom: 0 !important;
+          @include breakpoint(1280) {
+            margin-bottom: 35px !important;
+          }
+        }
+      }
+    }
+  }
+
+}

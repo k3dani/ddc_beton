@@ -1,0 +1,466 @@
+.pristatymas.product,
+.savivarciu.product{
+  .container-fluid {
+    padding-bottom: 80px;
+
+    .col-md-5 {
+      h1 {
+        @include font-size(40px);
+        color: $black;
+
+      }
+
+      .text {
+        h4 {
+          @include font(25px, $black, 400, 1);
+        }
+
+        ul {
+          li {
+            margin-bottom: 5px;
+          }
+        }
+      }
+      .toggle-text {
+        @include breakpoint(768) {
+          display: flex;
+        }
+        display: none;
+        align-items: center;
+        margin: 0 auto;
+        background: #F9F9F9;
+        padding: 18px 30px;
+        justify-content: space-between;
+        cursor: pointer;
+        margin-bottom: 30px;
+        @include transition(all, 0.2s);
+        img {
+          transform: rotate(90deg);
+          height: 16px;
+          width: auto;
+        }
+        p {
+          margin: 0;
+        }
+        &.active {
+          img {
+            transform: rotate(-90deg);
+          }
+
+        }
+      }
+      .photos {
+        a {
+          text-decoration: none;
+          width: calc(50%  - 5px);
+          &:first-of-type {
+            margin-right: 10px;
+          }
+          .photo {
+
+          }
+        }
+      }
+    }
+
+    .col-md-6 {
+      background: #F7F7F7;
+      padding: 138px;
+      @include breakpoint(1440) {
+        padding: 75px;
+      }
+      @include breakpoint(992) {
+        background: transparent;
+        padding: 0;
+      }
+      @include breakpoint(768) {
+      }
+      .summary {
+        width: 100%;
+        .price{
+          display: none;
+        }
+        .custom-delivery{
+          font-size: 20px;
+          font-size: 2rem;
+          color: #000;
+          font-weight: 400;
+          font-family: "Yantramanav", sans-serif;
+          line-height: 1;
+        }
+        .filable{
+          margin-top: 10px;
+          width: 100%;
+          input {
+            background: #f7f7f7;
+            border: 1px solid #d1d1d1;
+            border-radius: 2px;
+            color: #686868;
+            padding: 0.4375em;
+            width: 100% !important;
+            height: auto;
+            box-shadow: none;
+            display: block;
+            outline: none;
+            -webkit-appearance: none;
+          }
+        }
+      }
+      .prev-prod-details {
+        @include breakpoint(992) {
+          display: none;
+        }
+
+        .prev {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-between;
+          border-bottom: 1px solid #C2C2C2;
+          &:last-of-type {
+            border-bottom: 4px solid #C2C2C2;
+            p{
+              &.result {
+                color: $green;
+              }
+            }
+          }
+          p{
+             @include font(20px, $black, 600, 1.1);
+            @include breakpoint(1680) {
+              @include font-size(16px);
+            }
+            &.result {
+              @include font-size(25px);
+              @include breakpoint(1680) {
+                @include font-size(18px);
+              }
+            }
+           }
+          &.prev-price {
+            .result {
+              display: flex;
+              flex-direction: column;
+            }
+          }
+        }
+      }
+
+      .yith-wcbk-booking-form {
+        .yith-wcbk-form-section-duration--type-fixed {
+          display: none;
+        }
+
+        .yith-wcbk-form-section {
+          margin-bottom: 35px;
+
+          label {
+            @include font(20px, $black, 400, 1);
+
+          }
+        }
+
+      }
+      .yith-wcbk-form-section-dates-wrapper {
+        @include breakpoint(992) {
+          background: #F7F7F7;
+          padding: 45px 25px 1px 25px;
+          border-top: 3px solid $green;
+          position: relative;
+          margin-bottom: 35px;
+          &:before {
+            content: '3/9';
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 80px;
+            width: 104px;
+            background: #FFFFFF;
+            color: #DFDFDF;
+            @include font-size(26px);
+            font-weight: 700;
+            border-bottom-left-radius: 100%;
+            right: 0px;
+            padding-left: 22px;
+            top: 0px;
+            z-index: 0;
+          }
+        }
+
+      }
+      .yith-wcbk-form-section-services-wrapper {
+        margin: 30px 0 5px 0;
+        @include breakpoint(992) {
+          margin: 0px 0 0px 0;
+        }
+        .yith-wcbk-booking-form__label {
+          @include breakpoint(992) {
+            padding: 25px 25px 12px 25px;
+            background: #F7F7F7;
+            margin-bottom: 0;
+            @include font(21px, $black, 700, 1.3);
+          }
+        }
+        .yith-wcbk-form-section-service {
+          @include breakpoint(992) {
+            padding: 10px 25px;
+            background: #F7F7F7;
+          }
+        }
+        label {
+          @include font(20px, $black, 400, 1);
+          @include breakpoint(1680) {
+            @include font-size(18px);
+          }
+          @include breakpoint(992) {}
+          @include breakpoint(768) {
+            @include font-size(16px);
+          }
+        }
+
+      }
+      .additional-info {
+        @include breakpoint(992) {
+          background: #F7F7F7;
+          margin: 0;
+          padding: 15px 25px;
+        }
+      }
+      h3 {
+        &.additional-info {
+          @include breakpoint(992) {
+            border-top: 3px solid $green;
+            position: relative;
+            padding: 45px 25px 0 25px;
+            z-index: 9;
+            &:before {
+              content: '6/9';
+              position: absolute;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              height: 80px;
+              width: 104px;
+              background: #FFFFFF;
+              color: #DFDFDF;
+              @include font-size(26px);
+              font-weight: 700;
+              border-bottom-left-radius: 100%;
+              right: 0px;
+              padding-left: 22px;
+              top: 0px;
+              z-index: 0;
+            }
+          }
+
+        }
+      }
+      .popup-modal {
+        background: #F7F7F7;
+        margin: 0;
+        padding: 15px 25px;
+        display: block;
+      }
+
+      .yith-wcbk-form-section-persons-wrapper {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-end;
+        justify-content: space-between;
+        @include breakpoint(992) {
+          background: #F7F7F7;
+          padding: 45px 25px 0 25px;
+          border-top: 3px solid $green;
+          position: relative;
+          flex-direction: column;
+          align-items: flex-start;
+          &:before {
+            content: '4/9';
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 80px;
+            width: 104px;
+            background: #FFFFFF;
+            color: #DFDFDF;
+            @include font-size(26px);
+            font-weight: 700;
+            border-bottom-left-radius: 100%;
+            right: 0px;
+            padding-left: 22px;
+            top: 0px;
+            z-index: 0;
+          }
+        }
+        .yith-wcbk-form-section-persons {
+          margin-bottom: 0;
+          width: 47%;
+          padding: 0;
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          @include breakpoint(992) {
+            width: 100%;
+          }
+          div {
+            order: 1;
+            @include font(20px, $black, 700, 1);
+            margin-right: 5px;
+          }
+          .yith-wcbk-booking-form__label {
+            order: 2;
+            margin: 0;
+          }
+          label {
+            display: flex;
+            align-items: center;
+            &:after {
+              content: '';
+              background: url("../images/betonvezis-icon.svg");
+              background-repeat: no-repeat;
+              background-size: contain;
+              background-position: center;
+              height: 30px;
+              width: 30px;
+              position: relative;
+              margin-left: 15px;
+            }
+          }
+        }
+        .custom-input {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          margin: 0;
+          width: 47%;
+          @include font-size(20px);
+          @include breakpoint(992) {
+            width: 100%;
+          }
+          label {
+            order: 2;
+            @include font(20px, $black, 400, 1);
+            display: flex;
+            align-items: center;
+            margin: 0;
+            &:after {
+              content: '';
+              background: url("../images/pompa-icon.svg");
+              background-repeat: no-repeat;
+              background-size: contain;
+              background-position: center;
+              height: 30px;
+              width: 30px;
+              position: relative;
+              margin-left: 15px;
+            }
+          }
+          span {
+            order: 1;
+            @include font(20px, $black, 700, 1);
+          }
+          input {
+          }
+        }
+      }
+
+      .popup-modal {
+        color: $green;
+        text-decoration: none;
+        @include transition(all, 0.4s);
+        margin-bottom: 35px;
+
+        &:hover {
+          color: $black;
+        }
+      }
+      .yith-wcbk-booking-form-totals {
+        font-size: 2.5rem;
+        color: #000;
+        font-weight: 700;
+        font-family: "Yantramanav", sans-serif;
+        line-height: 1;
+        margin: 0;
+        @include breakpoint(992) {
+          padding: 25px 25px;
+          background: #F7F7F7;
+        }
+        .transportation {
+          display: flex;
+          flex-direction: row;
+          align-items: flex-start;
+          justify-content: space-between;
+          margin-bottom: 50px;
+          .numbers {
+            margin-left: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 10px;
+          }
+        }
+        .pump {
+          display: flex;
+          flex-direction: row;
+          align-items: flex-start;
+          justify-content: space-between;
+          margin-bottom: 50px;
+          .numbers {
+            margin-left: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 10px;
+          }
+        }
+      }
+
+
+      button {
+        width: 100%;
+        padding: 25px;
+        @include font(20px, $white, 500, 1);
+        background-color: $green !important;
+        border: none;
+        margin-top: 35px;
+      }
+
+    }
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
+}
+
+
+.pristatymas.post-33 .yith-wcbk-booking-form-total__fixed_base_fee .yith-wcbk-booking-form-total__label:after {
+  content: '(2h)';
+  margin-left: 5px;
+}
+
+.pristatymas.post-117 .yith-wcbk-booking-form-total__fixed_base_fee .yith-wcbk-booking-form-total__label:after {
+  content: '(4h)';
+  margin-left: 5px;
+}
+.pristatymas.post-116 .yith-wcbk-booking-form-total__fixed_base_fee .yith-wcbk-booking-form-total__label:after {
+  content: '(3h)';
+  margin-left: 5px;
+}
+
+.pristatymas.pristatymas-savivarciu .photos{
+  display: none !important;
+}
+.yith-wcbk-datepicker.ui-datepicker td a.ui-state-active, .yith-wcbk-date-picker--inline .ui-datepicker td a.ui-state-active {
+  color: #555 !important;
+}
