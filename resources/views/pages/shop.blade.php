@@ -120,8 +120,8 @@
                                     <div class="meta">
                                         <div class="meta-single">
                                             <span>
-                                                Bruttó: Ft {{ number_format($grossPrice, 2, ',', ' ') }}<br>
-                                                Nettó: Ft {{ number_format($netPrice, 2, ',', ' ') }}<br>
+                                                Bruttó: {{ number_format($grossPrice, 0, ',', ' ') }} Ft<br>
+                                                Nettó: {{ number_format($netPrice, 0, ',', ' ') }} Ft<br>
                                             </span>
                                         </div>
                                     </div>
@@ -148,7 +148,9 @@
             </div>
         </div>
     </div>
-    <div class="about-block">
+ 
+ 
+ <!--   <div class="about-block">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
@@ -187,6 +189,6 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
 @endsection

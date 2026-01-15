@@ -16,12 +16,18 @@ class LocationController extends Controller
             ->where('is_active', true)
             ->firstOrFail();
         
+        // FONTOS: Telephely váltáskor ürítjük a kosarat!
+        // Mert a kosárban más telephely termékei lehetnek más árakkal
+        session()->forget('cart');
+        
         // Telephely mentése session-be
         session([
             'selected_location_id' => $location->id,
             'selected_location_name' => $location->name,
             'selected_location_slug' => $location->slug
         ]);
+        
+        session()->save();
         
         // Ha AJAX kérés, JSON választ küldünk
         if ($request->ajax() || $request->wantsJson()) {

@@ -125,7 +125,7 @@ class ShopController extends Controller
         if ($redirect) return $redirect;
 
         $request->validate([
-            'quantity' => 'required|numeric|min:0.5|max:10',
+            'quantity' => 'required|numeric|min:0.5',
             'location_id' => 'required|exists:locations,id'
         ]);
 
@@ -155,12 +155,21 @@ class ShopController extends Controller
                 'product_slug' => $product->slug,
                 'location_id' => $request->location_id,
                 'quantity' => $request->quantity,
+                'unit' => $product->unit,
                 'gross_price' => $locationProduct->pivot->gross_price,
                 'net_price' => $locationProduct->pivot->net_price,
             ];
         }
 
         session()->put('cart', $cart);
+
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'A termék sikeresen hozzáadva a kosárhoz!',
+                'cart_count' => count($cart)
+            ]);
+        }
 
         return back()->with('success', 'A termék sikeresen hozzáadva a kosárhoz!');
     }

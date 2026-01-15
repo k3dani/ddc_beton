@@ -118,4 +118,43 @@
             </div>
         </div>
     </div>
+
+    @push('scripts')
+    <script>
+        // Automatikus nettó-bruttó számítás 27%-os ÁFA-val
+        document.addEventListener('DOMContentLoaded', function() {
+            const VAT_RATE = 1.27;
+            console.log('🧮 Price calculator loaded');
+
+            document.querySelectorAll('input[name*="[gross_price]"]').forEach(grossInput => {
+                const productId = grossInput.name.match(/\[(\d+)\]/)[1];
+                const netInput = document.querySelector(`input[name="product_prices[${productId}][net_price]"]`);
+                
+                console.log(`Setting up calculator for product ${productId}`);
+                
+                if (netInput) {
+                    // Ha bruttó változik, számoljuk ki a nettót
+                    grossInput.addEventListener('input', function() {
+                        if (this.value && this.value !== '') {
+                            const gross = parseFloat(this.value);
+                            const net = Math.round(gross / VAT_RATE);
+                            netInput.value = net;
+                            console.log(`Bruttó: ${gross} → Nettó: ${net}`);
+                        }
+                    });
+
+                    // Ha nettó változik, számoljuk ki a bruttót
+                    netInput.addEventListener('input', function() {
+                        if (this.value && this.value !== '') {
+                            const net = parseFloat(this.value);
+                            const gross = Math.round(net * VAT_RATE);
+                            grossInput.value = gross;
+                            console.log(`Nettó: ${net} → Bruttó: ${gross}`);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+    @endpush
 </x-app-layout>

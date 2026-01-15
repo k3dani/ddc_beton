@@ -45,7 +45,7 @@
             <div class="col-md-8">
                 <div style="background: #fff; padding: 40px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
                     @if($product->image)
-                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" style="width: 100%; max-width: 600px; margin-bottom: 30px;">
+                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" style="width: 100%; max-width: 50%; height: auto; margin-bottom: 30px; object-fit: contain;">
                     @endif
 
                     <div style="font-size: 16px; line-height: 1.8; color: #333;">
@@ -70,50 +70,41 @@
                         
                         @if($locationPrice && $locationPrice->pivot->is_available)
                             <div style="text-align: center; margin-bottom: 30px;">
-                                <div style="font-size: 14px; color: #666; margin-bottom: 5px;">1m³ ár:</div>
+                                <div style="font-size: 14px; color: #666; margin-bottom: 5px;">1 {{ $product->unit }} ár:</div>
                                 <div style="font-size: 32px; font-weight: 700; color: #004E2B; margin-bottom: 5px;">
-                                    Bruttó: {{ number_format($locationPrice->pivot->gross_price, 2, ',', ' ') }} Ft
+                                    Bruttó: {{ number_format($locationPrice->pivot->gross_price, 0, ',', ' ') }} Ft
                                 </div>
                                 <div style="font-size: 18px; color: #666;">
-                                    Nettó: {{ number_format($locationPrice->pivot->net_price, 2, ',', ' ') }} Ft
+                                    Nettó: {{ number_format($locationPrice->pivot->net_price, 0, ',', ' ') }} Ft
                                 </div>
                             </div>
 
-                            <form method="POST" action="{{ route('cart.add', $product->slug) }}" style="margin-bottom: 30px;">
+                            <form method="POST" action="{{ route('cart.add', $product->slug) }}" id="add-to-cart-form" style="margin-bottom: 30px;">
                                 @csrf
                                 <input type="hidden" name="location_id" value="{{ $selectedLocation->id }}">
                                 
                                 <div style="margin-bottom: 20px;">
-                                    <label style="display: block; margin-bottom: 10px; font-weight: 500; color: #333;">Mennyiség:</label>
-                                    <select name="quantity" style="width: 100%; padding: 12px; border: 2px solid #ddd; font-size: 16px; border-radius: 0;">
-                                        <option value="0.5">0.5m³</option>
-                                        <option value="1">1m³</option>
-                                        <option value="1.5">1.5m³</option>
-                                        <option value="2">2m³</option>
-                                        <option value="2.5">2.5m³</option>
-                                        <option value="3">3m³</option>
-                                        <option value="3.5">3.5m³</option>
-                                        <option value="4">4m³</option>
-                                        <option value="4.5">4.5m³</option>
-                                        <option value="5">5m³</option>
-                                        <option value="6">6m³</option>
-                                        <option value="7">7m³</option>
-                                        <option value="8">8m³</option>
-                                    </select>
+                                    <label style="display: block; margin-bottom: 10px; font-weight: 500; color: #333;">Mennyiség ({{ $product->unit }}):</label>
+                                    <input type="number" 
+                                           name="quantity" 
+                                           value="1" 
+                                           min="0.5" 
+                                           step="0.5"
+                                           style="width: 100%; padding: 12px; border: 2px solid #ddd; font-size: 16px; border-radius: 0;">
                                 </div>
 
                                 <div id="calculated-price" style="text-align: center; margin-bottom: 20px; padding: 15px; background: #f8f9fa;">
                                     <div style="font-size: 14px; color: #666; margin-bottom: 5px;">Számított ár:</div>
                                     <div style="font-size: 24px; font-weight: 700; color: #004E2B;" id="total-gross">
-                                        {{ number_format($locationPrice->pivot->gross_price * 0.5, 0, ',', ' ') }} Ft
+                                        {{ number_format($locationPrice->pivot->gross_price * 1, 0, ',', ' ') }} Ft
                                     </div>
                                     <div style="font-size: 16px; color: #666;" id="total-net">
-                                        Nettó: {{ number_format($locationPrice->pivot->net_price * 0.5, 0, ',', ' ') }} Ft
+                                        Nettó: {{ number_format($locationPrice->pivot->net_price * 1, 0, ',', ' ') }} Ft
                                     </div>
                                 </div>
 
-                                <button type="submit" style="width: 100%; padding: 18px; background: #004E2B; color: #fff; border: none; font-size: 18px; font-weight: 500; cursor: pointer; transition: all 0.3s; border: 2px solid #004E2B;">
-                                    Kosárba tesz
+                                <button type="button" id="order-btn" style="width: 100%; padding: 18px; background: #004E2B; color: #fff; border: none; font-size: 18px; font-weight: 500; cursor: pointer; transition: all 0.3s; border: 2px solid #004E2B;">
+                                    Megrendel
                                 </button>
                             </form>
                         @else
@@ -153,10 +144,26 @@
     </div>
 </div>
 
+<!-- Modal -->
+<div id="order-modal" style="display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.6);">
+    <div style="background-color: #fff; margin: 10% auto; padding: 40px; border: none; width: 90%; max-width: 500px; position: relative; box-shadow: 0 4px 20px rgba(0,0,0,0.3);">
+        <button id="close-modal" style="position: absolute; right: 20px; top: 20px; background: none; border: none; font-size: 28px; font-weight: 700; color: #666; cursor: pointer; line-height: 1;">&times;</button>
+        <h2 style="color: #004E2B; margin-bottom: 30px; font-size: 24px; text-align: center;">Mi a következő lépés?</h2>
+        <div style="display: flex; flex-direction: column; gap: 15px;">
+            <button id="continue-shopping" style="width: 100%; padding: 18px; background: #fff; color: #004E2B; border: 2px solid #004E2B; font-size: 18px; font-weight: 500; cursor: pointer; transition: all 0.3s;">
+                Folytatom a vásárlást
+            </button>
+            <button id="finalize-order" style="width: 100%; padding: 18px; background: #004E2B; color: #fff; border: 2px solid #004E2B; font-size: 18px; font-weight: 500; cursor: pointer; transition: all 0.3s;">
+                Véglegesítem a rendelést
+            </button>
+        </div>
+    </div>
+</div>
+
 @push('scripts')
 <script>
-document.querySelector('select[name="quantity"]')?.addEventListener('change', function() {
-    const quantity = parseFloat(this.value);
+document.querySelector('input[name="quantity"]')?.addEventListener('input', function() {
+    const quantity = parseFloat(this.value) || 0;
     const grossPrice = {{ $selectedLocation && $locationPrice && $locationPrice->pivot->is_available ? $locationPrice->pivot->gross_price : 0 }};
     const netPrice = {{ $selectedLocation && $locationPrice && $locationPrice->pivot->is_available ? $locationPrice->pivot->net_price : 0 }};
     
@@ -165,6 +172,56 @@ document.querySelector('select[name="quantity"]')?.addEventListener('change', fu
     
     document.getElementById('total-gross').textContent = new Intl.NumberFormat('hu-HU').format(totalGross) + ' Ft';
     document.getElementById('total-net').textContent = 'Nettó: ' + new Intl.NumberFormat('hu-HU').format(totalNet) + ' Ft';
+});
+
+// Modal kezelés
+const modal = document.getElementById('order-modal');
+const orderBtn = document.getElementById('order-btn');
+const closeModal = document.getElementById('close-modal');
+const continueShoppingBtn = document.getElementById('continue-shopping');
+const finalizeOrderBtn = document.getElementById('finalize-order');
+const form = document.getElementById('add-to-cart-form');
+
+orderBtn?.addEventListener('click', function() {
+    // Hozzáadjuk a kosárhoz AJAX-szal
+    const formData = new FormData(form);
+    
+    fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Modal megjelenítése
+        modal.style.display = 'block';
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        // Fallback: submit a form
+        form.submit();
+    });
+});
+
+closeModal?.addEventListener('click', function() {
+    modal.style.display = 'none';
+});
+
+window.addEventListener('click', function(event) {
+    if (event.target === modal) {
+        modal.style.display = 'none';
+    }
+});
+
+continueShoppingBtn?.addEventListener('click', function() {
+    window.location.href = '{{ route("shop") }}';
+});
+
+finalizeOrderBtn?.addEventListener('click', function() {
+    // Force reload to get fresh cart data
+    window.location.replace('{{ route("checkout.index") }}');
 });
 </script>
 @endpush

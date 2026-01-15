@@ -105,7 +105,7 @@
                     <div class="mt-6 p-4 bg-gray-50 rounded">
                         <h3 class="font-semibold mb-2">Útmutató:</h3>
                         <ul class="text-sm text-gray-600 list-disc list-inside space-y-1">
-                            <li>Írja be a bruttó és nettó árakat forintban minden telephelyre és termékre</li>
+                            <li>Írja be a bruttó vagy nettó árat, a másik automatikusan kiszámolódik (27% ÁFA)</li>
                             <li>Ha egy termék nem elérhető egy telephelyen, hagyja üresen az árakat</li>
                             <li>A mentés után az üres árak törlődnek az adatbázisból</li>
                             <li>A publikus oldalon csak azok a termékek jelennek meg, amelyekhez ár van megadva</li>
@@ -115,4 +115,43 @@
             </div>
         </div>
     </div>
+
+    @push('scripts')
+    <script>
+        // Automatikus nettó-bruttó számítás 27%-os ÁFA-val
+        document.addEventListener('DOMContentLoaded', function() {
+            const VAT_RATE = 1.27;
+            console.log('🧮 Price calculator loaded');
+
+            document.querySelectorAll('input[name*="[gross_price]"]').forEach(grossInput => {
+                const priceKey = grossInput.name.match(/prices\[([^\]]+)\]/)[1];
+                const netInput = document.querySelector(`input[name="prices[${priceKey}][net_price]"]`);
+                
+                console.log(`Setting up calculator for ${priceKey}`);
+                
+                if (netInput) {
+                    // Ha bruttó változik, számoljuk ki a nettót
+                    grossInput.addEventListener('input', function() {
+                        if (this.value && this.value !== '') {
+                            const gross = parseFloat(this.value);
+                            const net = Math.round(gross / VAT_RATE);
+                            netInput.value = net;
+                            console.log(`Bruttó: ${gross} → Nettó: ${net}`);
+                        }
+                    });
+
+                    // Ha nettó változik, számoljuk ki a bruttót
+                    netInput.addEventListener('input', function() {
+                        if (this.value && this.value !== '') {
+                            const net = parseFloat(this.value);
+                            const gross = Math.round(net * VAT_RATE);
+                            grossInput.value = gross;
+                            console.log(`Nettó: ${net} → Bruttó: ${gross}`);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+    @endpush
 </x-app-layout>

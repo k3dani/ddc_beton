@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ShopController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\LocationController as PublicLocationController;
 use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
@@ -25,7 +26,19 @@ Route::get('/ujdonsagok', [PageController::class, 'news'])->name('news');
 Route::get('/shop', [ShopController::class, 'index'])->name('shop');
 Route::get('/shop/{category}', [ShopController::class, 'category'])->name('shop.category');
 Route::get('/termek/{slug}', [ShopController::class, 'show'])->name('shop.product');
+
+// Cart & Checkout - FONTOS: ezeknek előbb kell lenniük mint a wildcard /kosar/{slug}!
+Route::get('/kosar', [CheckoutController::class, 'cart'])->name('cart');
+Route::post('/kosar/urites', [CheckoutController::class, 'clearCart'])->name('cart.clear');
+Route::post('/kosar/frissites', [CheckoutController::class, 'updateCart'])->name('cart.update');
+Route::post('/kosar/torles', [CheckoutController::class, 'removeFromCart'])->name('cart.remove');
+
+// Add to cart - wildcard route UTOLSÓNAK
 Route::post('/kosar/{slug}', [ShopController::class, 'addToCart'])->name('cart.add');
+
+Route::get('/rendeles', [CheckoutController::class, 'index'])->name('checkout.index');
+Route::post('/rendeles', [CheckoutController::class, 'store'])->name('checkout.store');
+Route::get('/rendeles/sikeres', [CheckoutController::class, 'success'])->name('checkout.success');
 
 // Telephely választás
 Route::get('/location/{slug}', [PublicLocationController::class, 'select'])->name('location.select');

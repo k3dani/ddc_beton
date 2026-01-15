@@ -79,7 +79,7 @@
                         <div class="mb-4">
                             <label class="block text-gray-700 text-sm font-bold mb-2">Jelenlegi kép</label>
                             @if($product->image)
-                                <img src="{{ Storage::url($product->image) }}" alt="{{ $product->name }}" class="h-32 w-32 object-cover mb-2">
+                                <img src="{{ Storage::url($product->image) }}" alt="{{ $product->name }}" class="max-h-32 max-w-40 object-contain border border-gray-300 rounded mb-2">
                             @endif
                             <input type="file" name="image" class="shadow border rounded w-full py-2 px-3 text-gray-700">
                             @error('image')

@@ -143,7 +143,7 @@ console.log('📍 Number of locations:', locations.length);
 
 // Ellenőrzés, hogy vannak-e telephelyek érvényes koordinátákkal
 const validLocations = locations.filter(loc => {
-    const lat =Az admin felületeken maradt egy információs üzenet, hogy a koordináták automatikusan kitöltődnek/frissülnek mentéskor. parseFloat(loc.latitude);
+    const lat = parseFloat(loc.latitude);
     const lng = parseFloat(loc.longitude);
     const valid = !isNaN(lat) && !isNaN(lng);
     if (!valid) {
@@ -163,6 +163,19 @@ window.initMapCallback = function() {
 function loadGoogleMaps() {
     console.log('📍 Loading Google Maps API...');
     
+    // API kulcs ellenőrzése
+    const apiKey = '{{ $googleMapsApiKey ?? "" }}';
+    console.log('🔑 API Key length:', apiKey.length);
+    
+    if (!apiKey || apiKey.length < 10) {
+        console.error('❌ Invalid API key:', apiKey);
+        const mapElement = document.getElementById('map');
+        if (mapElement) {
+            mapElement.innerHTML = '<div style="padding: 50px; text-align: center; color: red;">❌ Hiba: Google Maps API kulcs hiányzik!</div>';
+        }
+        return;
+    }
+    
     // Ellenőrizzük, hogy már be van-e töltve
     if (typeof google !== 'undefined' && google.maps) {
         console.log('✓ Google Maps already loaded');
@@ -172,7 +185,7 @@ function loadGoogleMaps() {
     
     // Google Maps script dinamikus betöltése a best practice szerint
     const script = document.createElement('script');
-    script.src = 'https://maps.googleapis.com/maps/api/js?key={{ $googleMapsApiKey ?? "" }}&libraries=places,geometry,marker&callback=initMapCallback&loading=async';
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=places,geometry&callback=initMapCallback&loading=async`;
     script.async = true;
     script.defer = true;
     
@@ -236,7 +249,6 @@ function initializeMap() {
             mapTypeControl: true,
             streetViewControl: false,
             fullscreenControl: true,
-            mapId: 'BETONPLUSS_MAP'
         });
         
         console.log('✓ Map created successfully');
@@ -252,31 +264,19 @@ function initializeMap() {
                 return; // Skip this location
             }
             
-            // Marker elem létrehozása
-            const markerElement = document.createElement('div');
-            markerElement.style.cssText = `
-                width: 40px;
-                height: 40px;
-                background-color: #004E2B;
-                border: 4px solid white;
-                border-radius: 50%;
-                box-shadow: 0 3px 8px rgba(0,0,0,0.4);
-                cursor: pointer;
-                transition: transform 0.2s;
-            `;
-            
-            markerElement.onmouseover = function() {
-                this.style.transform = 'scale(1.2)';
-            };
-            markerElement.onmouseout = function() {
-                this.style.transform = 'scale(1)';
-            };
-            
-            const marker = new google.maps.marker.AdvancedMarkerElement({
+            // Marker létrehozása
+            const marker = new google.maps.Marker({
                 map: map,
                 position: { lat: lat, lng: lng },
                 title: location.name,
-                content: markerElement
+                icon: {
+                    path: google.maps.SymbolPath.CIRCLE,
+                    scale: 12,
+                    fillColor: '#004E2B',
+                    fillOpacity: 1,
+                    strokeColor: 'white',
+                    strokeWeight: 4,
+                }
             });
             
             // InfoWindow a telephely nevével
