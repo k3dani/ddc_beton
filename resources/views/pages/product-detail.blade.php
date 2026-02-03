@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="page page-product-detail">
-    <div class="top-block" style="background: url('{{ $product->image ? asset('storage/' . $product->image) : 'http://betoonpluss.k3.hu/wp-content/uploads/2025/10/beton-epulet3.jpg' }}') center / cover no-repeat;">
+    <div class="top-block" style="background: url('{{ $product->image ? asset('storage/' . $product->image) : '/images/beton-epulet3.jpg' }}') center / cover no-repeat;">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">

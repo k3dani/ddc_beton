@@ -29,7 +29,7 @@
                     </ul>
                 </div>
                 <div class="col-md-6 right">
-                    <div class="photo pad-100" style="background: url('http://betoonpluss.k3.hu/wp-content/uploads/2025/02/ddc-beton.jpg') center / cover no-repeat;"></div>
+                    <div class="photo pad-100" style="background: url('/images/ddc-beton.jpg') center / cover no-repeat;"></div>
                 </div>
             </div>
         </div>
@@ -38,7 +38,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-6 left">
-                    <div class="photo pad-120" style="background: url('http://betoonpluss.k3.hu/wp-content/uploads/2025/02/heidelberg-materials.jpg') center / cover no-repeat;"></div>
+                    <div class="photo pad-120" style="background: url('/images/heidelberg-materials.jpg') center / cover no-repeat;"></div>
                 </div>
                 <div class="col-md-6 right">
                     <h2>Tulajdonosi háttér</h2>

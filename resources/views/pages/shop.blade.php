@@ -3,7 +3,7 @@
 @section('content')
 <div class="page page-shop">
     <div class="top-block"
-        style="background: url('http://betoonpluss.k3.hu/wp-content/uploads/2025/10/beton-epulet3.jpg') center / cover no-repeat;">
+        style="background: url('/images/beton-epulet3.jpg') center / cover no-repeat;">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-6">
@@ -49,23 +49,23 @@
                 <p>Keresse meg az Önnek legmegfelelőbb betontípust aszerint, hogy milyen célra szeretné felhasználni</p>
             </div>
             <div class="house">
-                <img src="http://betoonpluss.k3.hu/wp-content/uploads/2025/10/greenhousecar-2-1.svg" alt="">
+                <img src="/images/greenhousecar-2-1.svg" alt="">
 
                 <div class="info-box" style="left: 48%; top: 7%;">
                     <div class="content">
                         <div class="top"
-                             style="background: url('http://betoonpluss.k3.hu/wp-content/uploads/2025/10/beton-epulet3.jpg') center center / cover no-repeat;"></div>
+                             style="background: url('/images/beton-epulet3.jpg') center center / cover no-repeat;"></div>
                         <div class="bottom">
-                            <img src="http://betoonpluss.k3.hu/wp-content/uploads/2024/06/betonas-grindims.svg" alt="">
+                            <img src="/images/betonas-grindims.svg" alt="">
                             <p>Beton tetőkhöz</p>
                             <img class="arrow"
-                                 src="http://betoonpluss.k3.hu/wp-content/themes/wam/assets/images/arrow-down.svg"
+                                 src="/images/arrow-down.svg"
                                  alt="">
                         </div>
                         <div class="sub-content">
                             <div class="box">
                                 <a href="http://betoonpluss.k3.hu/product/csaladi-hazak-fodemje-c20-25-x1/">
-                                    <img src="http://betoonpluss.k3.hu/wp-content/uploads/2024/06/betonas-grindims.svg" alt="">
+                                    <img src="/images/betonas-grindims.svg" alt="">
                                     Beton tetőkhöz
                                 </a>
                             </div>
@@ -107,7 +107,7 @@
                                     @if($product->image)
                                         <img src="{{ Storage::url($product->image) }}" alt="{{ $product->name }}" />
                                     @else
-                                        <img src="http://betoonpluss.k3.hu/wp-content/uploads/2023/11/betonas-grindims.svg" alt="{{ $product->name }}" />
+                                        <img src="/images/betonas-grindims.svg" alt="{{ $product->name }}" />
                                     @endif
                                 </div>
                                 <h3>{{ $product->name }}</h3>

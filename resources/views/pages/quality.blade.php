@@ -27,7 +27,7 @@
                 </div>
                 <div class="col-md-1"></div>
                 <div class="col-md-5">
-                    <div class="photo pad-120" style="background: url('http://betoonpluss.k3.hu/wp-content/uploads/2025/02/ddc-betonmixer.jpg') center / cover no-repeat;"></div>
+                    <div class="photo pad-120" style="background: url('/images/ddc-betonmixer.jpg') center / cover no-repeat;"></div>
                 </div>
             </div>
         </div>

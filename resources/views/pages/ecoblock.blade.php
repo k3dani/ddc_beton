@@ -22,7 +22,7 @@
                 </div>
             </div>
             <div class="right">
-                <div class="hero-image" style="background: url('http://betoonpluss.k3.hu/wp-content/uploads/2024/01/lego-siena.jpg.webp') center / cover no-repeat;">
+                <div class="hero-image" style="background: url('/images/lego-siena.jpg.webp') center / cover no-repeat;">
                 </div>
             </div>
         </div>
@@ -59,7 +59,7 @@
     <div class="info-block-image">
         <div class="wrapper">
             <div class="left">
-                <div class="left-image" style="background: url('http://betoonpluss.k3.hu/wp-content/uploads/2024/01/bgimg1-scaled.jpg.webp') center center / cover no-repeat;">
+                <div class="left-image" style="background: url('/images/bgimg1-scaled.jpg.webp') center center / cover no-repeat;">
                 </div>
             </div>
             <div class="right">
@@ -96,7 +96,7 @@
                         </div>
                     </div>
                     <div class="bottom">
-                        <div class="icon" style="background: url('http://betoonpluss.k3.hu/wp-content/uploads/2023/11/legoblock1.svg') center / contain no-repeat;"></div>
+                        <div class="icon" style="background: url('/images/legoblock1.svg') center / contain no-repeat;"></div>
                     </div>
                 </div>
                 <div class="box">
@@ -109,7 +109,7 @@
                         </div>
                     </div>
                     <div class="bottom">
-                        <div class="icon" style="background: url('http://betoonpluss.k3.hu/wp-content/uploads/2023/11/legoblock2.svg') center / contain no-repeat;"></div>
+                        <div class="icon" style="background: url('/images/legoblock2.svg') center / contain no-repeat;"></div>
                     </div>
                 </div>
                 <div class="box">
@@ -122,7 +122,7 @@
                         </div>
                     </div>
                     <div class="bottom">
-                        <div class="icon" style="background: url('http://betoonpluss.k3.hu/wp-content/uploads/2023/11/legoblock3.svg') center / contain no-repeat;"></div>
+                        <div class="icon" style="background: url('/images/legoblock3.svg') center / contain no-repeat;"></div>
                     </div>
                 </div>
             </div>

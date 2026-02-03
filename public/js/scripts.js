@@ -319,7 +319,7 @@ jQuery(document).ready(function ($) {
         loop: true,
         margin: 10,
         nav: true,
-        navText: ["<img src='/wp-content/themes/wam/assets/images/preview.svg'>", "<img src='/wp-content/themes/wam/assets/images/next.svg'>"],
+        navText: ["<img src='/images/preview.svg'>", "<img src='/images/next.svg'>"],
         dots: false,
         responsive: {
             0: {
@@ -338,7 +338,7 @@ jQuery(document).ready(function ($) {
         loop: true,
         margin: 16,
         nav: true,
-        navText: ["<img src='/wp-content/themes/wam/assets/images/preview.svg'>", "<img src='/wp-content/themes/wam/assets/images/next.svg'>"],
+        navText: ["<img src='/images/preview.svg'>", "<img src='/images/next.svg'>"],
         dots: false,
         autoWidth: true,
         responsive: {

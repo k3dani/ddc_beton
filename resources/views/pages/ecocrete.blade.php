@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="right">
-                <div class="hero-image" style="background: url('http://betoonpluss.k3.hu/wp-content/uploads/2024/01/iStock-175490608.jpg.webp') center / cover no-repeat;">
+                <div class="hero-image" style="background: url('/images/iStock-175490608.jpg.webp') center / cover no-repeat;">
                 </div>
                 <div class="circle-block">
                     <div class="cicrle">
@@ -87,15 +87,15 @@
                 <div class="list">
                     <ul>
                         <li>
-                            <div class="icon" style="background: url('http://betoonpluss.k3.hu/wp-content/uploads/2023/11/co2.svg') center / contain no-repeat;"></div>
+                            <div class="icon" style="background: url('/images/co2.svg') center / contain no-repeat;"></div>
                             <p>Akár 20%-kal alacsonyabb CO2-kibocsátás.</p>
                         </li>
                         <li>
-                            <div class="icon" style="background: url('http://betoonpluss.k3.hu/wp-content/uploads/2023/11/leaf.svg') center / contain no-repeat;"></div>
+                            <div class="icon" style="background: url('/images/leaf.svg') center / contain no-repeat;"></div>
                             <p>A termékek magas minőségét, megbízhatóságát és hosszú élettartamát a környezetre gyakorolt negatív hatások nélkül tartjuk fenn.</p>
                         </li>
                         <li>
-                            <div class="icon" style="background: url('http://betoonpluss.k3.hu/wp-content/uploads/2023/11/check.svg') center / contain no-repeat;"></div>
+                            <div class="icon" style="background: url('/images/check.svg') center / contain no-repeat;"></div>
                             <p>A megbízhatóságot fenntarthatósági tanúsítványok biztosítják.</p>
                         </li>
                     </ul>
@@ -105,7 +105,7 @@
     </div>
     <div class="char-block">
         <div class="wrapper">
-            <div class="left" style="background: url('http://betoonpluss.k3.hu/wp-content/uploads/2024/01/MicrosoftTeams-image-5.jpg.webp') center / cover no-repeat;"></div>
+            <div class="left" style="background: url('/images/MicrosoftTeams-image-5.jpg.webp') center / cover no-repeat;"></div>
             <div class="right">
                 <div class="title-row">
                     <div class="logo">
@@ -174,7 +174,7 @@
                             <p>Az EcocCrete használata garantálja a CO2-kibocsátás akár 20%-os csökkentését, a minőség 100%-os fenntartása mellett.</p>
                         </div>
                         <div class="image">
-                            <img src="http://betoonpluss.k3.hu/wp-content/uploads/2023/11/palyginimas-1.svg" alt="">
+                            <img src="/images/palyginimas-1.svg" alt="">
                         </div>
                         <div class="bottom-text">
                             <p>Ez egy egyedi, optimalizált receptúrának köszönhető, amely a nyersanyagok szén-dioxid-mentesítésén és a kisebb CO2-lábnyomú cement felhasználásán alapul.</p>
@@ -193,7 +193,7 @@
                             <p>Továbbra is magas termelékenység és tartósság</p>
                         </div>
                         <div class="image">
-                            <img src="http://betoonpluss.k3.hu/wp-content/uploads/2023/11/palyginimas02.svg" alt="">
+                            <img src="/images/palyginimas02.svg" alt="">
                         </div>
                         <div class="bottom-text">
                             <p>Ez egy egyedi, optimalizált receptúrának köszönhető, amely a nyersanyagok szén-dioxid-mentesítésén és a kisebb CO2-lábnyomú cement felhasználásán alapul.</p>
@@ -203,7 +203,7 @@
             </div>
         </div>
     </div>
-    <div class="bg-block" style="background: url('http://betoonpluss.k3.hu/wp-content/uploads/2024/01/photo31.jpg.webp') center / cover no-repeat;">
+    <div class="bg-block" style="background: url('/images/photo31.jpg.webp') center / cover no-repeat;">
         <div class="wrapper">
             <div class="logo">
                 <img src="{{ asset('images/ecocretelight.svg') }}" alt="">
