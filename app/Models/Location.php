@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
 class Location extends Model
@@ -22,6 +23,11 @@ class Location extends Model
         'longitude',
         'is_active',
     ];
+
+    public function pumps(): HasMany
+    {
+        return $this->hasMany(Pump::class);
+    }
 
     protected $casts = [
         'latitude' => 'decimal:8',
@@ -116,6 +122,11 @@ class Location extends Model
         return $this->belongsToMany(Product::class, 'location_product')
             ->withPivot('gross_price', 'net_price', 'is_available')
             ->withTimestamps();
+    }
+
+    public function deliveryPrices(): HasMany
+    {
+        return $this->hasMany(DeliveryPrice::class)->orderBy('distance_from_km');
     }
 
     public function scopeActive($query)

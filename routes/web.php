@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\ProductCategoryController;
 use App\Http\Controllers\Admin\LocationProductPriceController;
+use App\Http\Controllers\Admin\DeliveryPriceController;
 use App\Http\Controllers\Admin\DashboardController;
 use Illuminate\Support\Facades\Route;
 
@@ -40,9 +41,19 @@ Route::get('/rendeles', [CheckoutController::class, 'index'])->name('checkout.in
 Route::post('/rendeles', [CheckoutController::class, 'store'])->name('checkout.store');
 Route::get('/rendeles/sikeres', [CheckoutController::class, 'success'])->name('checkout.success');
 
+// Delivery calculation
+Route::post('/delivery/calculate', [CheckoutController::class, 'calculateDelivery'])->name('delivery.calculate');
+Route::post('/delivery/set-choice', [CheckoutController::class, 'setDeliveryChoice'])->name('delivery.setChoice');
+Route::get('/delivery/check-address', [CheckoutController::class, 'checkConstructionAddress'])->name('delivery.checkAddress');
+
+// Pump selection
+Route::get('/pump/get-available', [CheckoutController::class, 'getAvailablePumps'])->name('pump.getAvailable');
+Route::post('/pump/set-choice', [CheckoutController::class, 'setPumpChoice'])->name('pump.setChoice');
+
 // Telephely választás
 Route::get('/location/{slug}', [PublicLocationController::class, 'select'])->name('location.select');
 Route::post('/location/clear', [PublicLocationController::class, 'clear'])->name('location.clear');
+Route::post('/location/save-address', [PublicLocationController::class, 'saveAddress'])->name('location.saveAddress');
 
 // Admin routes
 Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
@@ -50,6 +61,7 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     
     // Locations CRUD
     Route::resource('locations', LocationController::class);
+    Route::post('locations/{location}/delivery-prices', [LocationController::class, 'updateDeliveryPrices'])->name('locations.delivery-prices.update');
     
     // Products CRUD
     Route::resource('products', AdminProductController::class);
@@ -60,6 +72,15 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
     // Telephely-Termék-Ár mátrix
     Route::get('/location-product-prices', [LocationProductPriceController::class, 'index'])->name('location-product-prices.index');
     Route::put('/location-product-prices', [LocationProductPriceController::class, 'update'])->name('location-product-prices.update');
+    
+    // Delivery Prices CRUD
+    Route::resource('delivery-prices', DeliveryPriceController::class);
+    
+        // Pump management (CRUD) for locations
+        Route::get('locations/{location}/pumps', [\App\Http\Controllers\Admin\PumpController::class, 'index'])->name('locations.pumps.index');
+        Route::post('locations/{location}/pumps', [\App\Http\Controllers\Admin\PumpController::class, 'store'])->name('locations.pumps.store');
+        Route::put('locations/{location}/pumps/{pump}', [\App\Http\Controllers\Admin\PumpController::class, 'update'])->name('locations.pumps.update');
+        Route::delete('locations/{location}/pumps/{pump}', [\App\Http\Controllers\Admin\PumpController::class, 'destroy'])->name('locations.pumps.destroy');
 });
 
 Route::middleware('auth')->group(function () {

@@ -12,14 +12,14 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
-        'product_category_id',
         'name',
+        'technical_name',
         'slug',
-        'code',
         'description',
         'short_description',
         'sku',
         'unit',
+        'volume_cbm',
         'image',
         'is_active',
         'sort_order',
@@ -27,11 +27,13 @@ class Product extends Model
 
     protected $casts = [
         'is_active' => 'boolean',
+        'volume_cbm' => 'decimal:3',
     ];
 
-    public function category(): BelongsTo
+    public function categories(): BelongsToMany
     {
-        return $this->belongsTo(ProductCategory::class, 'product_category_id');
+        return $this->belongsToMany(ProductCategory::class, 'category_product')
+            ->withTimestamps();
     }
 
     public function locations(): BelongsToMany

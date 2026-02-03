@@ -6862,3 +6862,23 @@ ul.tabs li.current {
   color: #fff;
   gap: 40px;
 }/*# sourceMappingURL=style.css.map */
+/* Disabled info-box stílus */
+.house-block .house .info-box.disabled .expander {
+  background-color: #999;
+  opacity: 0.6;
+}
+
+.house-block .house .info-box.disabled .content .bottom {
+  background-color: #f5f5f5;
+  opacity: 0.8;
+}
+
+.house-block .house .info-box.disabled .content .bottom p {
+  color: #666;
+}
+
+/* Category card hover effekt */
+.category-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15) !important;
+  transform: translateY(-2px);
+}

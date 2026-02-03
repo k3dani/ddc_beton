@@ -70,9 +70,101 @@
                 <div id="location-info" style="display:none; margin-top: 30px; margin-bottom: 50px; padding: 30px; background: #f8f9fa; border: 2px solid #004E2B; border-radius: 0;">
                     <h4 style="font-size: 24px; font-weight: 700; color: #004E2B; margin-bottom: 20px; font-family: 'Yantramanav', sans-serif;">Kiválasztott telephely</h4>
                     <p style="font-size: 18px; margin-bottom: 25px; color: #333;"><strong style="color: #004E2B;">Telephely:</strong> <span id="selected-location-name"></span></p>
-                    <button id="continue-btn" class="btn" style="display: inline-block; text-decoration: none; font-size: 20px; color: #fff; background: #004E2B; padding: 20px 65px; border: 2px solid #004E2B; border-radius: 0; font-weight: 500; font-family: 'Yantramanav', sans-serif; transition: all 0.3s ease; text-align: center; cursor: pointer;">Tovább a termékválasztáshoz</button>
                 </div>
             </div>
+        </div>
+    </div>
+    
+    <!-- Modal az építkezési cím megadásához -->
+    <div id="addressModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 10000; align-items: center; justify-content: center;">
+        <div style="background: white; padding: 40px; max-width: 700px; width: 90%; border-radius: 0; position: relative;">
+            <h3 style="font-size: 28px; font-weight: 700; color: #004E2B; margin-bottom: 20px; font-family: 'Yantramanav', sans-serif;">Építkezési cím megadása</h3>
+            <p style="font-size: 16px; margin-bottom: 30px; color: #666;">Kérjük, adja meg az építkezés címét. Ezt később a rendelés során fogjuk használni.</p>
+            
+            <form id="addressForm">
+                <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 20px; margin-bottom: 20px;">
+                    <div>
+                        <label style="display: block; margin-bottom: 10px; font-weight: 600; color: #333;">Irányítószám:</label>
+                        <input type="text" 
+                               id="postal-code" 
+                               name="postal_code"
+                               placeholder="pl. 2600"
+                               maxlength="4"
+                               pattern="[0-9]{4}"
+                               style="width: 100%; padding: 12px; border: 2px solid #ddd; font-size: 16px; border-radius: 0;">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 10px; font-weight: 600; color: #333;">Város:</label>
+                        <input type="text" 
+                               id="city" 
+                               name="city"
+                               placeholder="pl. Vác"
+                               style="width: 100%; padding: 12px; border: 2px solid #ddd; font-size: 16px; border-radius: 0;">
+                    </div>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px; margin-bottom: 20px;">
+                    <div>
+                        <label style="display: block; margin-bottom: 10px; font-weight: 600; color: #333;">Közterület neve:</label>
+                        <input type="text" 
+                               id="street-name" 
+                               name="street_name"
+                               placeholder="pl. Köztársaság"
+                               style="width: 100%; padding: 12px; border: 2px solid #ddd; font-size: 16px; border-radius: 0;">
+                    </div>
+                    <div>
+                        <label style="display: block; margin-bottom: 10px; font-weight: 600; color: #333;">Jellege:</label>
+                        <select id="street-type" 
+                                name="street_type"
+                                style="width: 100%; padding: 12px; border: 2px solid #ddd; font-size: 16px; border-radius: 0; background: white;">
+                            <option value="">Válassz</option>
+                            <option value="utca">utca</option>
+                            <option value="út">út</option>
+                            <option value="tér">tér</option>
+                            <option value="köz">köz</option>
+                            <option value="körút">körút</option>
+                            <option value="sétány">sétány</option>
+                            <option value="dűlő">dűlő</option>
+                            <option value="sor">sor</option>
+                            <option value="park">park</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 10px; font-weight: 600; color: #333;">Házszám:</label>
+                    <input type="text" 
+                           id="house-number" 
+                           name="house_number"
+                           placeholder="pl. 52. vagy 52/A"
+                           style="width: 100%; padding: 12px; border: 2px solid #ddd; font-size: 16px; border-radius: 0;">
+                </div>
+                
+                <input type="hidden" id="construction-latitude">
+                <input type="hidden" id="construction-longitude">
+                
+                <div id="distance-info" style="display: none; margin-bottom: 20px; padding: 15px; background: #e8f5e9; border-left: 4px solid #004E2B;">
+                    <p style="margin: 0; color: #333;"><strong>Távolság a telephelytől:</strong> <span id="distance-value"></span> km</p>
+                </div>
+                
+                <div id="distance-warning" style="display: none; margin-bottom: 20px; padding: 15px; background: #fff3cd; border-left: 4px solid #ff9800; color: #856404; font-size: 15px;">
+                    <!-- Warning message will be inserted here -->
+                </div>
+                
+                <div style="display: flex; gap: 15px;">
+                    <button type="button" 
+                            id="save-address-btn"
+                            onclick="handleAddressSave(event)"
+                            style="flex: 1; padding: 15px 30px; background: #004E2B; color: white; border: 2px solid #004E2B; font-size: 18px; font-weight: 600; cursor: pointer; border-radius: 0; transition: all 0.3s;">
+                        Tovább a termékválasztáshoz
+                    </button>
+                    <button type="button" 
+                            onclick="skipAddressModal()"
+                            style="padding: 15px 30px; background: white; color: #666; border: 2px solid #ddd; font-size: 16px; font-weight: 600; cursor: pointer; border-radius: 0; transition: all 0.3s;">
+                        Kihagyom
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -100,13 +192,24 @@
     opacity: 0.6 !important;
 }
 
-/* Gomb hover effekt */
-#continue-btn:hover {
-    background: #fff !important;
-    color: #004E2B !important;
-    border-color: #004E2B !important;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 78, 43, 0.2);
+/* Modal stílusok */
+#addressModal {
+    display: none;
+}
+
+#addressModal.show {
+    display: flex !important;
+}
+
+#addressModal button:hover {
+    opacity: 0.9;
+}
+
+#save-address-btn:disabled {
+    background: #ccc !important;
+    border-color: #ccc !important;
+    cursor: not-allowed !important;
+    opacity: 0.6 !important;
 }
 
 /* Információs doboz animáció */
@@ -316,6 +419,7 @@ function initializeMap() {
 // Telephely kiválasztása
 function selectLocation(location, marker, infoWindow) {
     console.log('📍 Location selected:', location.name);
+    console.log('📍 Location coordinates:', location.latitude, location.longitude);
     
     selectedLocation = location;
     
@@ -343,6 +447,300 @@ function selectLocation(location, marker, infoWindow) {
     
     // Smooth scroll az info box-hoz
     document.getElementById('location-info').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    
+    // Modal megnyitása a cím megadásához
+    console.log('🔓 Opening address modal...');
+    openAddressModal(location);
+}
+
+// Modal megnyitása
+function openAddressModal(location) {
+    console.log('🔓 Address modal opening for location:', location);
+    const modal = document.getElementById('addressModal');
+    if (modal) {
+        modal.classList.add('show');
+        console.log('✓ Modal opened');
+    } else {
+        console.error('❌ Modal element not found!');
+    }
+}
+
+// Modal bezárása
+function closeAddressModal() {
+    const modal = document.getElementById('addressModal');
+    modal.classList.remove('show');
+    
+    // Form reset
+    document.getElementById('addressForm').reset();
+    document.getElementById('construction-latitude').value = '';
+    document.getElementById('construction-longitude').value = '';
+    document.getElementById('distance-info').style.display = 'none';
+    document.getElementById('distance-warning').style.display = 'none';
+}
+
+// Geocoding - cím koordinátákká alakítása
+async function geocodeAddress(addressString) {
+    console.log('🔍 Geocoding address:', addressString);
+    
+    // Ellenőrizzük, hogy a Google Maps API betöltődött-e
+    if (typeof google === 'undefined' || !google.maps) {
+        console.error('❌ Google Maps API not loaded!');
+        return null;
+    }
+    
+    try {
+        const geocoder = new google.maps.Geocoder();
+        
+        const result = await new Promise((resolve, reject) => {
+            geocoder.geocode({ 
+                address: addressString + ', Magyarország',
+                region: 'HU',
+                componentRestrictions: {
+                    country: 'HU'
+                }
+            }, (results, status) => {
+                console.log('Geocoding status:', status);
+                
+                if (status === 'OK' && results[0]) {
+                    console.log('✓ Geocoding successful:', results[0]);
+                    resolve(results[0]);
+                } else {
+                    console.error('❌ Geocoding failed:', status);
+                    reject(new Error('Geocoding failed: ' + status));
+                }
+            });
+        });
+        
+        const coords = {
+            lat: result.geometry.location.lat(),
+            lng: result.geometry.location.lng()
+        };
+        
+        console.log('✓ Coordinates:', coords);
+        return coords;
+    } catch (error) {
+        console.error('❌ Geocoding error:', error);
+        return null;
+    }
+}
+
+// Cím mentése - a gombról közvetlenül hívva
+async function handleAddressSave(event) {
+    console.log('🎯 SAVE ADDRESS BUTTON CLICKED!');
+    event.preventDefault();
+    event.stopPropagation();
+    
+    const postalCode = document.getElementById('postal-code').value.trim();
+    const city = document.getElementById('city').value.trim();
+    const streetName = document.getElementById('street-name').value.trim();
+    const streetType = document.getElementById('street-type').value;
+    const houseNumber = document.getElementById('house-number').value.trim();
+    
+    console.log('📝 Form values:', { postalCode, city, streetName, streetType, houseNumber });
+    
+    // Ha nincs cím megadva, csak lépjen tovább
+    if (!postalCode && !city && !streetName) {
+        console.log('⏭️ No address provided, skipping');
+        skipAddressModal();
+        return;
+    }
+    
+    // Teljes cím összeállítása
+    let fullAddress = '';
+    if (postalCode) fullAddress += postalCode + ' ';
+    if (city) fullAddress += city + ', ';
+    if (streetName) fullAddress += streetName + ' ';
+    if (streetType) fullAddress += streetType + ' ';
+    if (houseNumber) fullAddress += houseNumber;
+    
+    fullAddress = fullAddress.trim();
+    console.log('📍 Full address:', fullAddress);
+    
+    // Koordináták lekérése geocoding-gal
+    const coords = await geocodeAddress(fullAddress);
+    let lat = null;
+    let lng = null;
+    
+    if (coords) {
+        lat = coords.lat;
+        lng = coords.lng;
+        
+        console.log('✓ Geocoded address:', fullAddress, 'to', lat, lng);
+        console.log('📍 Selected location:', selectedLocation);
+        
+        // Távolság számítása
+        if (selectedLocation && selectedLocation.latitude && selectedLocation.longitude) {
+            console.log('📏 Calculating distance...');
+            const distance = await calculateDistance(lat, lng, selectedLocation);
+            
+            if (distance) {
+                console.log('📏 Calculated distance:', distance.toFixed(1), 'km');
+                
+                // Figyelmeztetés megjelenítése
+                if (distance > 120) {
+                    const warningText = 'Figyelem! Az építési cím több mint 120 km távolságra van a kiválasztott telephelytől (' + distance.toFixed(1) + ' km autóval). Ez különdíjat vonhat magával.';
+                    
+                    // Alert megjelenítése
+                    alert(warningText);
+                    console.warn('⚠️ Distance warning shown:', distance.toFixed(1), 'km');
+                }
+            } else {
+                console.error('❌ Distance calculation returned null');
+            }
+        } else {
+            console.error('❌ Selected location missing coordinates:', selectedLocation);
+        }
+    } else {
+        console.error('❌ Geocoding failed for address:', fullAddress);
+    }
+    
+    // AJAX kérések: ELŐSZÖR mentsük el a telephelyet, UTÁNA a címet
+    console.log('💾 Saving location and address to session...');
+    
+    try {
+        // 1. TELEPHELY MENTÉSE
+        console.log('📍 Step 1: Saving selected location...');
+        const locationResponse = await fetch(`/location/${selectedLocation.slug}`, {
+            method: 'GET',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Accept': 'application/json'
+            }
+        });
+        
+        const locationData = await locationResponse.json();
+        console.log('✓ Location saved:', locationData);
+        
+        // 2. CÍM MENTÉSE (ha van geocodolt cím)
+        if (lat && lng && fullAddress) {
+            console.log('🏗️ Step 2: Saving construction address...');
+            const response = await fetch('/location/save-address', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                body: JSON.stringify({
+                    construction_address: fullAddress,
+                    construction_latitude: lat,
+                    construction_longitude: lng,
+                    postal_code: postalCode,
+                    city: city,
+                    street: (streetName + ' ' + streetType).trim(),
+                    house_number: houseNumber
+                })
+            });
+            
+            const data = await response.json();
+            console.log('✓ Address saved:', data);
+        } else {
+            console.log('⏭️ No address to save, continuing with location only');
+        }
+        
+        // Modal bezárása és átirányítás
+        closeAddressModal();
+        window.location.href = '{{ route("shop") }}';
+        
+    } catch (error) {
+        console.error('❌ Error saving:', error);
+        // Hiba esetén is menjünk tovább
+        window.location.href = '{{ route("shop") }}';
+    }
+}
+
+// Kihagyás - telephely választás mentése és továbblépés cím nélkül
+function skipAddressModal() {
+    console.log('⏭️ Skipping address input');
+    
+    // AJAX telephely mentés cím nélkül
+    fetch(`/location/${selectedLocation.slug}`, {
+        method: 'GET',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Átirányítás a shop-ba
+            window.location.href = '{{ route("shop") }}';
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        window.location.href = '{{ route("shop") }}';
+    });
+}
+
+// Távolság számítása ÚTVONAL alapján (Google Maps Distance Matrix API)
+async function calculateDistance(lat, lng, location) {
+    const locationLat = parseFloat(location.latitude);
+    const locationLng = parseFloat(location.longitude);
+    
+    console.log('📏 Calculating road distance using Google Maps...');
+    console.log('   From:', locationLat, locationLng, '(' + location.name + ')');
+    console.log('   To:', lat, lng);
+    
+    try {
+        const service = new google.maps.DistanceMatrixService();
+        
+        const result = await new Promise((resolve, reject) => {
+            service.getDistanceMatrix({
+                origins: [{ lat: locationLat, lng: locationLng }],
+                destinations: [{ lat: lat, lng: lng }],
+                travelMode: google.maps.TravelMode.DRIVING,
+                unitSystem: google.maps.UnitSystem.METRIC,
+                avoidHighways: false,
+                avoidTolls: false
+            }, (response, status) => {
+                console.log('Distance Matrix API status:', status);
+                console.log('Distance Matrix API response:', response);
+                
+                if (status === 'OK') {
+                    resolve(response);
+                } else {
+                    console.error('❌ Distance Matrix API error status:', status);
+                    reject(new Error('Distance Matrix API failed: ' + status));
+                }
+            });
+        });
+        
+        const element = result.rows[0].elements[0];
+        console.log('Distance element:', element);
+        
+        if (element.status === 'OK') {
+            const distanceInMeters = element.distance.value;
+            const distance = distanceInMeters / 1000; // km-re váltás
+            const duration = element.duration.text; // pl. "2 óra 30 perc"
+            
+            console.log('✓ Road distance:', distance.toFixed(1), 'km');
+            console.log('⏱️ Travel time:', duration);
+            
+            // Távolság megjelenítése
+            document.getElementById('distance-value').textContent = distance.toFixed(1);
+            document.getElementById('distance-info').style.display = 'block';
+            
+            // Figyelmeztetés ha több mint 120 km
+            const warningDiv = document.getElementById('distance-warning');
+            if (distance > 120) {
+                warningDiv.innerHTML = '<strong>Figyelem!</strong> Az építési cím több mint 120 km távolságra van a kiválasztott telephelytől (' + distance.toFixed(1) + ' km autóval). Ez különdíjat vonhat magával.';
+                warningDiv.style.display = 'block';
+                console.warn('⚠️ Distance warning shown:', distance.toFixed(1), 'km > 120 km');
+            } else {
+                warningDiv.style.display = 'none';
+                console.log('✓ Distance OK:', distance.toFixed(1), 'km <= 120 km');
+            }
+            
+            return distance;
+        } else {
+            console.error('❌ Distance calculation failed:', element.status);
+            return null;
+        }
+    } catch (error) {
+        console.error('❌ Error calculating distance:', error);
+        return null;
+    }
 }
 
 console.log('✓ Map script loaded and ready');
