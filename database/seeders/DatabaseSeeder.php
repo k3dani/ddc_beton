@@ -7,6 +7,7 @@ use App\Models\Location;
 use App\Models\ProductCategory;
 use App\Models\Product;
 use App\Models\DeliveryPrice;
+use App\Models\Pump;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -356,6 +357,77 @@ class DatabaseSeeder extends Seeder
         DeliveryPrice::updateOrCreate(
             ['location_id' => $gyor->id, 'distance_from_km' => 31, 'distance_to_km' => 50],
             ['price_per_cbm' => 10500]
+        );
+
+        // Pumpák telephelyenként
+        // Vác Betongyár pumpák
+        Pump::updateOrCreate(
+            ['location_id' => $vac->id, 'type' => 'Putzmeister 32m'],
+            [
+                'boom_length' => 32,
+                'fixed_fee' => 85000,
+                'hourly_fee' => 18000,
+            ]
+        );
+        Pump::updateOrCreate(
+            ['location_id' => $vac->id, 'type' => 'Schwing 36m'],
+            [
+                'boom_length' => 36,
+                'fixed_fee' => 95000,
+                'hourly_fee' => 20000,
+            ]
+        );
+        Pump::updateOrCreate(
+            ['location_id' => $vac->id, 'type' => 'Putzmeister 42m'],
+            [
+                'boom_length' => 42,
+                'fixed_fee' => 110000,
+                'hourly_fee' => 23000,
+            ]
+        );
+
+        // Budapest Telephely pumpák
+        Pump::updateOrCreate(
+            ['location_id' => $bp->id, 'type' => 'Putzmeister 32m'],
+            [
+                'boom_length' => 32,
+                'fixed_fee' => 90000,
+                'hourly_fee' => 19000,
+            ]
+        );
+        Pump::updateOrCreate(
+            ['location_id' => $bp->id, 'type' => 'Schwing 36m'],
+            [
+                'boom_length' => 36,
+                'fixed_fee' => 100000,
+                'hourly_fee' => 21000,
+            ]
+        );
+        Pump::updateOrCreate(
+            ['location_id' => $bp->id, 'type' => 'Cifa 52m'],
+            [
+                'boom_length' => 52,
+                'fixed_fee' => 135000,
+                'hourly_fee' => 28000,
+            ]
+        );
+
+        // Győr Betonüzem pumpák
+        Pump::updateOrCreate(
+            ['location_id' => $gyor->id, 'type' => 'Putzmeister 28m'],
+            [
+                'boom_length' => 28,
+                'fixed_fee' => 80000,
+                'hourly_fee' => 17000,
+            ]
+        );
+        Pump::updateOrCreate(
+            ['location_id' => $gyor->id, 'type' => 'Schwing 36m'],
+            [
+                'boom_length' => 36,
+                'fixed_fee' => 92000,
+                'hourly_fee' => 19500,
+            ]
         );
     }
 }
