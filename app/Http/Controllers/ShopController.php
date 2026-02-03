@@ -26,14 +26,36 @@ class ShopController extends Controller
         // Telephely ellenőrzés
         $redirect = $this->checkLocationSelected();
         if ($redirect) return $redirect;
-        $categories = ProductCategory::ordered()->get();
+        
         $locations = Location::active()->orderBy('name')->get();
         
         // Kiválasztott telephely
         $selectedLocationId = $request->session()->get('selected_location_id');
         $selectedLocation = $selectedLocationId ? Location::find($selectedLocationId) : null;
         
-        $query = Product::with(['category'])->active()->ordered();
+        // Kategóriák betöltése termékekkel
+        $allCategories = ProductCategory::with(['products' => function($q) use ($selectedLocation) {
+            $q->active()->ordered();
+            
+            // Ha van kiválasztott telephely, csak azokat a termékeket, amelyekhez van ár
+            if ($selectedLocation) {
+                $q->whereHas('locations', function($query) use ($selectedLocation) {
+                    $query->where('location_id', $selectedLocation->id)
+                          ->where('is_available', true)
+                          ->whereNotNull('gross_price')
+                          ->whereNotNull('net_price');
+                })
+                ->with(['locations' => function($query) use ($selectedLocation) {
+                    $query->where('location_id', $selectedLocation->id);
+                }]);
+            }
+        }])->ordered()->get();
+        
+        // Szétválasztjuk a házas képen megjelenőket és az alul megjelenőket
+        $categoriesOnHouse = $allCategories->where('is_visible_on_house', true);
+        $categoriesBelowHouse = $allCategories->where('is_visible_on_house', false);
+        
+        $query = Product::with(['categories'])->active()->ordered();
         
         // Ha van kiválasztott telephely, csak azokat a termékeket jelenítjük meg, amelyekhez van ár
         if ($selectedLocation) {
@@ -52,12 +74,14 @@ class ShopController extends Controller
         
         // Kategória szűrés
         if ($request->has('category') && $request->category) {
-            $query->where('product_category_id', $request->category);
+            $query->whereHas('categories', function($q) use ($request) {
+                $q->where('product_categories.id', $request->category);
+            });
         }
         
         $products = $query->get();
 
-        return view('pages.shop', compact('products', 'categories', 'locations', 'selectedLocation'));
+        return view('pages.shop', compact('products', 'allCategories', 'categoriesOnHouse', 'categoriesBelowHouse', 'locations', 'selectedLocation'));
     }
 
     public function category($categorySlug)
@@ -67,15 +91,37 @@ class ShopController extends Controller
         if ($redirect) return $redirect;
 
         $category = ProductCategory::where('slug', $categorySlug)->firstOrFail();
-        $categories = ProductCategory::ordered()->get();
         $locations = Location::active()->orderBy('name')->get();
         
         // Kiválasztott telephely
         $selectedLocationId = session('selected_location_id');
         $selectedLocation = $selectedLocationId ? Location::find($selectedLocationId) : null;
         
-        $query = Product::where('product_category_id', $category->id)
-            ->with(['category'])
+        // Kategóriák betöltése termékekkel
+        $allCategories = ProductCategory::with(['products' => function($q) use ($selectedLocation) {
+            $q->active()->ordered();
+            
+            if ($selectedLocation) {
+                $q->whereHas('locations', function($query) use ($selectedLocation) {
+                    $query->where('location_id', $selectedLocation->id)
+                          ->where('is_available', true)
+                          ->whereNotNull('gross_price')
+                          ->whereNotNull('net_price');
+                })
+                ->with(['locations' => function($query) use ($selectedLocation) {
+                    $query->where('location_id', $selectedLocation->id);
+                }]);
+            }
+        }])->ordered()->get();
+        
+        // Szétválasztjuk a házas képen megjelenőket és az alul megjelenőket
+        $categoriesOnHouse = $allCategories->where('is_visible_on_house', true);
+        $categoriesBelowHouse = $allCategories->where('is_visible_on_house', false);
+        
+        $query = Product::whereHas('categories', function($q) use ($category) {
+                $q->where('product_categories.id', $category->id);
+            })
+            ->with(['categories'])
             ->active()
             ->ordered();
         
@@ -96,7 +142,7 @@ class ShopController extends Controller
         
         $products = $query->get();
 
-        return view('pages.shop', compact('products', 'categories', 'locations', 'selectedLocation', 'category'));
+        return view('pages.shop', compact('products', 'allCategories', 'categoriesOnHouse', 'categoriesBelowHouse', 'locations', 'selectedLocation', 'category'));
     }
 
     public function show($slug)
@@ -105,7 +151,7 @@ class ShopController extends Controller
         $redirect = $this->checkLocationSelected();
         if ($redirect) return $redirect;
 
-        $product = Product::where('slug', $slug)->with(['category', 'locations'])->firstOrFail();
+        $product = Product::where('slug', $slug)->with(['categories', 'locations'])->firstOrFail();
         $locations = Location::active()->orderBy('name')->get();
         
         // Kiválasztott telephely
@@ -143,6 +189,20 @@ class ShopController extends Controller
 
         // Kosár kezelése session-ben
         $cart = session()->get('cart', []);
+        
+        // Ha a kosár üres volt, töröljük a régi pumpa és fuvar adatokat
+        // (új rendelés indul)
+        if (empty($cart)) {
+            session()->forget([
+                'needs_delivery',
+                'pump_id',
+                'pump_type',
+                'pump_boom_length',
+                'pump_fixed_fee',
+                'pump_hourly_fee',
+                'pump_estimated_hours',
+            ]);
+        }
         
         $cartKey = $product->id . '_' . $request->location_id;
         

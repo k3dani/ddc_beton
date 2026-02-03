@@ -1,71 +1,56 @@
 jQuery(document).ready(function ($) {
+    // Delegált eseménykezelés az info-box-okhoz (dinamikusan is működik)
+    $(document).on('mouseenter', '.info-box', function() {
+        const $this = $(this);
+        if ($this.hasClass('active')) {
+            $this.removeClass('active');
+        } else {
+            $('.info-box').removeClass('active');
+            $this.addClass('active');
+        }
+    });
+
+    $(document).on('mouseleave', '.info-box', function() {
+        const $this = $(this);
+        const $content = $this.find('.content');
+        
+        if ($this.hasClass('active')) {
+            $this.removeClass('active');
+            $content.removeClass('active');
+        } else {
+            $('.info-box').removeClass('active');
+            $('.info-box .content').removeClass('active');
+            $this.removeClass('active');
+            $content.removeClass('active');
+        }
+    });
+
+    $(document).on('click', '.info-box .content', function(e) {
+        e.stopPropagation();
+        const $this = $(this);
+        
+        if ($this.hasClass('active')) {
+            $this.removeClass('active');
+        } else {
+            $('.info-box .content').removeClass('active');
+            $this.addClass('active');
+        }
+    });
+
+    // Menü elemek kezelése
+    $(document).on('click', '.product-menu ul .menu-item-has-children', function() {
+        const $this = $(this);
+        
+        if ($this.hasClass('active')) {
+            $this.removeClass('active');
+        } else {
+            $('.product-menu ul .menu-item-has-children').removeClass('active');
+            $this.addClass('active');
+        }
+    });
+
     window.addEventListener('load', () => {
-
-        const infoBox = document.querySelectorAll('.info-box');
-        const content = document.querySelectorAll('.info-box .content')
-
-        infoBox.forEach((val, i) => {
-            val.addEventListener('mouseenter', () => {
-                if (infoBox[i].classList.contains('active')) {
-                    infoBox[i].classList.remove('active')
-                } else {
-                    infoBox.forEach(val => {
-                        infoBox[i].classList.remove('active')
-                    })
-
-                    infoBox[i].classList.add('active')
-                }
-            })
-        })
-
-        infoBox.forEach((val, i) => {
-            val.addEventListener('mouseleave', () => {
-                if (infoBox[i].classList.contains('active')) {
-                    infoBox[i].classList.remove('active')
-                    content[i].classList.remove('active')
-                } else {
-                    infoBox.forEach(val => {
-                        infoBox[i].classList.remove('active')
-                    })
-                    content.forEach(val => {
-                        content[i].classList.remove('active')
-                    })
-
-                    infoBox[i].classList.remove('active')
-                    content[i].classList.remove('active')
-                }
-            })
-        })
-
-        content.forEach((val, i) => {
-            val.addEventListener('click', () => {
-                if (content[i].classList.contains('active')) {
-                    content[i].classList.remove('active')
-                } else {
-                    content.forEach(val => {
-                        val.classList.remove('active')
-                    })
-
-                    content[i].classList.add('active')
-                }
-
-            })
-        });
-
-        const menuItem = document.querySelectorAll('.product-menu ul .menu-item-has-children');
-        menuItem.forEach((val, i) => {
-            val.addEventListener('click', () => {
-                if (menuItem[i].classList.contains('active')) {
-                    menuItem[i].classList.remove('active');
-                } else {
-                    menuItem.forEach(val => {
-                        val.classList.remove('active');
-                    })
-                    menuItem[i].classList.add('active');
-                }
-            });
-        })
-
+        // Ez a rész csak egyszer fut le az oldal betöltésekor
         if (!document.querySelector('body').classList.contains('logged-in')) {
             var parent = document.querySelectorAll('.product-menu ul .menu-item-has-children .sub-menu');
             var child = document.querySelectorAll('.background');
@@ -73,7 +58,6 @@ jQuery(document).ready(function ($) {
                 parent[i].prepend(child[i]);
             })
         }
-
     });
     // Smooth scroll
 

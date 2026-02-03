@@ -14,16 +14,24 @@
                         @method('PUT')
 
                         <div class="mb-4">
-                            <label class="block text-gray-700 text-sm font-bold mb-2">Kategória</label>
-                            <select name="product_category_id" class="shadow border rounded w-full py-2 px-3 text-gray-700" required>
-                                <option value="">Válassz kategóriát</option>
+                            <label class="block text-gray-700 text-sm font-bold mb-2">Kategóriák</label>
+                            <div class="border rounded p-4 bg-gray-50">
                                 @foreach($categories as $category)
-                                    <option value="{{ $category->id }}" {{ old('product_category_id', $product->product_category_id) == $category->id ? 'selected' : '' }}>
-                                        {{ $category->name }}
-                                    </option>
+                                    <div class="mb-2 flex items-center">
+                                        <input type="checkbox" 
+                                               name="category_ids[]" 
+                                               value="{{ $category->id }}" 
+                                               id="category_{{ $category->id }}"
+                                               {{ (is_array(old('category_ids')) && in_array($category->id, old('category_ids'))) || (!old('category_ids') && $product->categories->contains($category->id)) ? 'checked' : '' }}
+                                               class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500">
+                                        <label for="category_{{ $category->id }}" class="ml-2 text-sm font-medium text-gray-700 cursor-pointer">
+                                            {{ $category->name }}
+                                        </label>
+                                    </div>
                                 @endforeach
-                            </select>
-                            @error('product_category_id')
+                            </div>
+                            <p class="text-gray-600 text-xs mt-1">Válaszd ki azokat a kategóriákat, amelyekbe a termék tartozik</p>
+                            @error('category_ids')
                                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                             @enderror
                         </div>
@@ -32,6 +40,15 @@
                             <label class="block text-gray-700 text-sm font-bold mb-2">Név</label>
                             <input type="text" name="name" value="{{ old('name', $product->name) }}" class="shadow border rounded w-full py-2 px-3 text-gray-700" required>
                             @error('name')
+                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="block text-gray-700 text-sm font-bold mb-2">Technikai név</label>
+                            <input type="text" name="technical_name" value="{{ old('technical_name', $product->technical_name) }}" class="shadow border rounded w-full py-2 px-3 text-gray-700" placeholder="pl. C25/30 F2">
+                            <p class="text-gray-600 text-xs mt-1">Ez a név a termék neve alatt jelenik meg kisebb betűvel</p>
+                            @error('technical_name')
                                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                             @enderror
                         </div>

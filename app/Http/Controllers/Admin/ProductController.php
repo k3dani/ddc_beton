@@ -14,7 +14,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::with('category')->ordered()->paginate(20);
+        $products = Product::with('categories')->ordered()->paginate(20);
         return view('admin.products.index', compact('products'));
     }
 
@@ -29,8 +29,10 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'product_category_id' => 'nullable|exists:product_categories,id',
+            'category_ids' => 'nullable|array',
+            'category_ids.*' => 'exists:product_categories,id',
             'name' => 'required|string|max:255',
+            'technical_name' => 'nullable|string|max:255',
             'slug' => 'nullable|string|max:255|unique:products,slug',
             'description' => 'nullable|string',
             'short_description' => 'nullable|string|max:500',
@@ -52,7 +54,16 @@ class ProductController extends Controller
             $validated['image'] = $request->file('image')->store('products', 'public');
         }
 
+        // Remove category_ids from validated data before creating product
+        $categoryIds = $validated['category_ids'] ?? [];
+        unset($validated['category_ids']);
+
         $product = Product::create($validated);
+
+        // Attach categories
+        if (!empty($categoryIds)) {
+            $product->categories()->sync($categoryIds);
+        }
 
         // Attach locations with prices
         if ($request->has('location_prices')) {
@@ -75,7 +86,7 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
-        $product->load(['category', 'locations']);
+        $product->load(['categories', 'locations']);
         return view('admin.products.show', compact('product'));
     }
 
@@ -91,8 +102,10 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $validated = $request->validate([
-            'product_category_id' => 'nullable|exists:product_categories,id',
+            'category_ids' => 'nullable|array',
+            'category_ids.*' => 'exists:product_categories,id',
             'name' => 'required|string|max:255',
+            'technical_name' => 'nullable|string|max:255',
             'slug' => 'required|string|max:255|unique:products,slug,' . $product->id,
             'description' => 'nullable|string',
             'short_description' => 'nullable|string|max:500',
@@ -114,7 +127,14 @@ class ProductController extends Controller
             $validated['image'] = $request->file('image')->store('products', 'public');
         }
 
+        // Remove category_ids from validated data before updating product
+        $categoryIds = $validated['category_ids'] ?? [];
+        unset($validated['category_ids']);
+
         $product->update($validated);
+
+        // Sync categories
+        $product->categories()->sync($categoryIds);
 
         // Update locations with prices
         if ($request->has('location_prices')) {

@@ -43,7 +43,13 @@
                                         @endif
                                     </td>
                                     <td class="px-6 py-4">{{ $product->name }}</td>
-                                    <td class="px-6 py-4">{{ $product->category->name }}</td>
+                                    <td class="px-6 py-4">
+                                        @if($product->categories->count() > 0)
+                                            {{ $product->categories->pluck('name')->join(', ') }}
+                                        @else
+                                            <span class="text-gray-400">-</span>
+                                        @endif
+                                    </td>
                                     <td class="px-6 py-4">{{ $product->sku }}</td>
                                     <td class="px-6 py-4">{{ $product->unit }}</td>
                                     <td class="px-6 py-4">

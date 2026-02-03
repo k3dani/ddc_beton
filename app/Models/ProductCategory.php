@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class ProductCategory extends Model
 {
@@ -14,12 +14,21 @@ class ProductCategory extends Model
         'name',
         'slug',
         'description',
+        'image',
         'sort_order',
+        'position_x',
+        'position_y',
+        'is_visible_on_house',
     ];
 
-    public function products(): HasMany
+    protected $casts = [
+        'is_visible_on_house' => 'boolean',
+    ];
+
+    public function products(): BelongsToMany
     {
-        return $this->hasMany(Product::class);
+        return $this->belongsToMany(Product::class, 'category_product')
+            ->withTimestamps();
     }
 
     public function scopeOrdered($query)

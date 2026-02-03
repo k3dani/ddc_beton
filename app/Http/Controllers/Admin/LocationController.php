@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Location;
 use App\Models\Product;
+use App\Models\DeliveryPrice;
 use Illuminate\Http\Request;
 
 class LocationController extends Controller
@@ -51,6 +52,7 @@ class LocationController extends Controller
     {
         $products = Product::active()->ordered()->get();
         $locationProducts = $location->products->pluck('id')->toArray();
+        $location->load('deliveryPrices');
         
         return view('admin.locations.edit', compact('location', 'products', 'locationProducts'));
     }
@@ -97,5 +99,38 @@ class LocationController extends Controller
 
         return redirect()->route('admin.locations.index')
             ->with('success', 'Telephely sikeresen törölve!');
+    }
+
+    public function updateDeliveryPrices(Request $request, Location $location)
+    {
+        try {
+            $prices = $request->input('prices', []);
+            
+            foreach ($prices as $priceData) {
+                if (!empty($priceData['price_per_cbm']) && !empty($priceData['price_per_cbm_net'])) {
+                    DeliveryPrice::updateOrCreate(
+                        [
+                            'location_id' => $location->id,
+                            'distance_from_km' => $priceData['distance_from_km'],
+                            'distance_to_km' => $priceData['distance_to_km'],
+                        ],
+                        [
+                            'price_per_cbm' => $priceData['price_per_cbm'],
+                            'price_per_cbm_net' => $priceData['price_per_cbm_net'],
+                        ]
+                    );
+                }
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Fuvardíjak sikeresen mentve!'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
     }
 }

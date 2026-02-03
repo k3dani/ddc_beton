@@ -59,9 +59,19 @@ class ProductCategoryController extends Controller
             'slug' => 'required|string|max:255|unique:product_categories,slug,' . $category->id,
             'description' => 'nullable|string',
             'sort_order' => 'nullable|integer|min:0',
+            'is_visible_on_house' => 'nullable|boolean',
+            'position_x' => 'nullable|string|max:10',
+            'position_y' => 'nullable|string|max:10',
         ]);
 
         $validated['sort_order'] = $validated['sort_order'] ?? 0;
+        $validated['is_visible_on_house'] = $request->has('is_visible_on_house');
+        
+        // Ha nincs beállítva a checkbox, töröljük a pozíciókat
+        if (!$validated['is_visible_on_house']) {
+            $validated['position_x'] = null;
+            $validated['position_y'] = null;
+        }
 
         $category->update($validated);
 

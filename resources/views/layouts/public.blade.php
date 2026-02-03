@@ -42,7 +42,7 @@
                         <a href="{{ route('quality') }}">Minőség</a>
                     </li>
                     <li class="{{ request()->routeIs('shop*') ? 'current-menu-item' : '' }}">
-                        <a href="{{ route('shop') }}">Shop</a>
+                        <a href="{{ route('shop') }}">Rendelés</a>
                     </li>
                     <li class="{{ request()->routeIs('tips') ? 'current-menu-item' : '' }}">
                         <a href="{{ route('tips') }}">Tanácsok</a>
